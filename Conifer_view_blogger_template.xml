@@ -2,9 +2,9 @@
 <!DOCTYPE html>
 <html b:version='2' class='v2' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
 <head>
-    <meta content='width=device-width, initial-scale=1.0' name='viewport'/>
     <b:include data='blog' name='all-head-content'/>
     
+    <!-- Dynamic Title and Meta Tags -->
     <b:if cond='data:view.isHomepage'>
         <title><data:blog.title/></title>
         <meta expr:content='data:blog.metaDescription' name='description'/>
@@ -13,41 +13,70 @@
         <title><data:post.title/> - <data:blog.title/></title>
         <b:if cond='data:post.snippet'>
             <meta expr:content='data:post.snippet' name='description'/>
+        <b:else/>
+            <meta expr:content='data:blog.metaDescription' name='description'/>
         </b:if>
     </b:if>
     <b:if cond='data:view.isPage'>
         <title><data:post.title/> - <data:blog.title/></title>
+        <b:if cond='data:post.snippet'>
+            <meta expr:content='data:post.snippet' name='description'/>
+        <b:else/>
+            <meta expr:content='data:blog.metaDescription' name='description'/>
+        </b:if>
     </b:if>
     <b:if cond='data:view.isArchive'>
-        <title>Archive for <data:blog.title/></title>
+        <title>Archive - <data:blog.title/></title>
+        <meta content='Browse our blog archive for past posts and updates.' name='description'/>
+    </b:if>
+    <b:if cond='data:view.isLabelSearch'>
+        <title>Posts tagged &quot;<data:view.search.label/>&quot; - <data:blog.title/></title>
+        <meta expr:content='&quot;Posts tagged with &quot; + data:view.search.label + &quot; on &quot; + data:blog.title' name='description'/>
+    </b:if>
+    <b:if cond='data:view.isSearch'>
+        <title>Search results for &quot;<data:view.search.query/>&quot; - <data:blog.title/></title>
+        <meta expr:content='&quot;Search results for &quot; + data:view.search.query + &quot; on &quot; + data:blog.title' name='description'/>
     </b:if>
     <b:if cond='data:view.isError'>
         <title>Page Not Found - <data:blog.title/></title>
         <meta content='The page you are looking for was not found.' name='description'/>
     </b:if>
-
+    
+    <!-- Open Graph and Social Media Meta Tags -->
     <meta expr:content='data:blog.title' property='og:site_name'/>
     <b:if cond='data:view.isHomepage'>
-        <meta expr:content='data:blog.homepageUrl.canonical' property='og:url'/>
+        <meta expr:content='data:blog.homepageUrl' property='og:url'/>
         <meta expr:content='data:blog.title' property='og:title'/>
         <meta expr:content='data:blog.metaDescription' property='og:description'/>
         <meta content='website' property='og:type'/>
     </b:if>
     <b:if cond='data:view.isPost'>
-        <meta expr:content='data:post.url.canonical' property='og:url'/>
+        <meta expr:content='data:post.url' property='og:url'/>
         <meta expr:content='data:post.title' property='og:title'/>
         <meta expr:content='data:post.snippet' property='og:description'/>
         <meta content='article' property='og:type'/>
         <b:if cond='data:post.featuredImage'>
             <meta expr:content='data:post.featuredImage' property='og:image'/>
         </b:if>
+        <meta expr:content='data:post.dateHeader' property='article:published_time'/>
     </b:if>
-
+    
+    <!-- Twitter Card -->
     <meta content='summary_large_image' name='twitter:card'/>
     <meta expr:content='data:blog.title' name='twitter:site'/>
     
-    <link expr:href='data:blog.url.canonical' rel='canonical'/>
-
+    <!-- Canonical URLs -->
+    <b:if cond='data:view.isHomepage'>
+        <link expr:href='data:blog.homepageUrl' rel='canonical'/>
+    </b:if>
+    <b:if cond='data:view.isPost'>
+        <link expr:href='data:post.url' rel='canonical'/>
+    </b:if>
+    <b:if cond='data:view.isPage'>
+        <link expr:href='data:post.url' rel='canonical'/>
+    </b:if>
+    
+    <!-- Structured Data -->
     <b:if cond='data:view.isHomepage'>
         <script type='application/ld+json'>
         {
@@ -55,7 +84,7 @@
             "@type": "LodgingBusiness",
             "name": "<data:blog.title/>",
             "description": "<data:blog.metaDescription/>",
-            "url": "<data:blog.homepageUrl.canonical/>",
+            "url": "<data:blog.homepageUrl/>",
             "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Iqbal Colony Road, Tangmarg",
@@ -64,424 +93,1644 @@
                 "postalCode": "193402",
                 "addressCountry": "IN"
             },
-            "telephone": "+91-70065-08551"
+            "telephone": "+91-70065-08551",
+            "starRating": {
+                "@type": "Rating",
+                "ratingValue": "4.3",
+                "bestRating": "5"
+            },
+            "amenityFeature": [
+                {"@type": "LocationFeatureSpecification", "name": "Free Parking"},
+                {"@type": "LocationFeatureSpecification", "name": "Free WiFi"},
+                {"@type": "LocationFeatureSpecification", "name": "Breakfast"},
+                {"@type": "LocationFeatureSpecification", "name": "Garden"},
+                {"@type": "LocationFeatureSpecification", "name": "24-hour front desk"}
+            ]
         }
         </script>
     </b:if>
 
-    <link href='https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap' rel='stylesheet'/>
-    
-    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css' rel='stylesheet'/>
-
     <b:skin><![CDATA[
-/* --- Variables & Base Styles --- */
-:root {
-    --primary-color: #2c5530; --secondary-color: #8b4513; --accent-color: #d4af37;
-    --text-color: #333; --text-light: #666; --bg-light: #f8f9fa; --white: #ffffff;
-    --shadow: 0 10px 30px rgba(0,0,0,0.1); --shadow-hover: 0 15px 35px rgba(0,0,0,0.15);
-    --border-radius: 15px; --transition: all 0.3s ease;
-    --font-primary: 'Inter', sans-serif; --font-heading: 'Playfair Display', serif;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { font-family: var(--font-primary); line-height: 1.6; color: var(--text-color); background: var(--white); overflow-x: hidden; }
-.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; margin-bottom: 1rem; }
-h1 { font-size: 3rem; } h2 { font-size: 2.5rem; color: var(--primary-color); } h3 { font-size: 1.75rem; } h4 { font-size: 1.25rem; }
-p { margin-bottom: 1rem; color: #564c4c; }
-a { color: var(--primary-color); text-decoration: none; transition: var(--transition); }
-a:hover { color: var(--accent-color); }
+    /* CSS Variables */
+    :root {
+        --primary-color: #2c5530;
+        --secondary-color: #8b4513;
+        --accent-color: #d4af37;
+        --text-color: #333;
+        --text-light: #666;
+        --text-lighter: #999;
+        --bg-light: #f8f9fa;
+        --bg-lighter: #fafbfc;
+        --white: #ffffff;
+        --border-light: #e9ecef;
+        --shadow: 0 10px 30px rgba(0,0,0,0.1);
+        --shadow-hover: 0 20px 40px rgba(0,0,0,0.15);
+        --shadow-light: 0 4px 15px rgba(0,0,0,0.08);
+        --border-radius: 15px;
+        --border-radius-sm: 8px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        --font-heading: 'Playfair Display', Georgia, serif;
+        --max-width: 1200px;
+        --spacing: 1rem;
+        --spacing-lg: 2rem;
+        --spacing-xl: 4rem;
+    }
 
-/* --- Buttons --- */
-.btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 15px 30px; border: none; border-radius: 50px; font-weight: 600; text-decoration: none; transition: var(--transition); cursor: pointer; font-family: var(--font-primary); }
-.btn-primary { background: var(--accent-color); color: var(--text-color); }
-.btn-primary:hover { background: var(--primary-color); color: var(--white); transform: translateY(-3px); box-shadow: var(--shadow-hover); }
-.btn-secondary { background: transparent; color: var(--white); border: 2px solid var(--white); }
-.btn-secondary:hover { background: var(--white); color: var(--primary-color); transform: translateY(-3px); }
+    /* Reset & Base Styles */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-/* --- Header & Navigation --- */
-.header { position: fixed; top: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); box-shadow: 0 2px 20px rgba(0,0,0,0.1); z-index: 1000; transition: background 0.3s ease, box-shadow 0.3s ease; }
-.nav { display: flex; align-items: center; justify-content: space-between; height: 80px; }
-.logo { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; color: var(--primary-color); }
-.logo h1 { margin: 0; font-size: inherit; color: inherit; }
-.nav-links { display: flex; list-style: none; gap: 2rem; margin: 0; }
-.nav-links a { font-weight: 500; color: var(--text-color); }
-.mobile-menu { display: none; flex-direction: column; cursor: pointer; gap: 4px; }
-.mobile-menu span { width: 25px; height: 3px; background: var(--primary-color); transition: var(--transition); }
+    html {
+        scroll-behavior: smooth;
+        font-size: 16px;
+    }
 
-/* --- Homepage Hero --- */
-.hero { height: 100vh; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=2070&q=80") center center/cover no-repeat fixed; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white); }
-.hero-content { max-width: 800px; padding: 0 20px; }
-.hero h1 { font-size: 4rem; margin-bottom: 1rem; opacity: 0; animation: fadeInUp 1s ease forwards; }
-.hero-subtitle { font-size: 1.5rem; margin-bottom: 2rem; opacity: 0; animation: fadeInUp 1s ease 0.3s forwards; }
-.hero-location { font-size: 1.1rem; margin-bottom: 3rem; opacity: 0; animation: fadeInUp 1s ease 0.6s forwards; }
-.cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; opacity: 0; animation: fadeInUp 1s ease 0.9s forwards; }
+    body {
+        font-family: var(--font-primary);
+        line-height: 1.7;
+        color: var(--text-color);
+        background: var(--white);
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
 
-/* --- General Sections --- */
-.section { padding: 6rem 0; }
-.section.bg-light { background: var(--bg-light); }
-.section-header { text-align: center; margin-bottom: 3rem; }
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
 
-/* --- Quick Stats --- */
-.quick-stats { background: var(--white); padding: 4rem 0; box-shadow: var(--shadow); margin-top: -50px; position: relative; z-index: 10; border-radius: 20px; margin-left: 20px; margin-right: 20px; }
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; text-align: center; }
-.stat-item { padding: 1rem; transition: var(--transition); }
-.stat-item:hover { transform: translateY(-5px); }
-.stat-icon { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem; }
-.stat-title { font-weight: 600; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--primary-color); }
+    a {
+        color: inherit;
+        text-decoration: none;
+        transition: var(--transition);
+    }
 
-/* --- About Section --- */
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-.about-image { height: 400px; border-radius: var(--border-radius); overflow: hidden; }
-.about-image img { width: 100%; height: 100%; object-fit: cover; }
+    /* Container */
+    .container {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 0 var(--spacing);
+    }
 
-/* --- Amenities, Rooms, Reviews --- */
-.amenities-grid, .rooms-grid, .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-.amenity-card, .room-card, .review-card { background: var(--white); border-radius: var(--border-radius); box-shadow: var(--shadow); transition: var(--transition); overflow: hidden; }
-.amenity-card:hover, .room-card:hover, .review-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
-.amenity-card { padding: 2rem; text-align: center; }
-.amenity-icon { font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem; }
-.room-card-image { height: 200px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); }
-.room-card-content { padding: 1.5rem; }
-.room-features { list-style: none; margin: 1rem 0 1.5rem; padding: 0; }
-.room-features li { margin-bottom: 0.5rem; }
-.room-features i { color: var(--primary-color); margin-right: 0.5rem; }
-.review-card { padding: 2rem; }
-.review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-.review-rating { color: var(--accent-color); }
-.review-platform { font-size: 0.9rem; color: var(--text-light); }
-.review-text { font-style: italic; margin-bottom: 1rem; }
-.reviewer-name { font-weight: 600; color: var(--primary-color); }
+    /* Header & Navigation */
+    .header {
+        position: sticky;
+        top: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        box-shadow: var(--shadow-light);
+        z-index: 1000;
+        transition: var(--transition);
+    }
 
-/* --- Location Section --- */
-.location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-.location-map-placeholder { height: 400px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: var(--border-radius); }
-.distance-list { list-style: none; padding: 0; }
-.distance-list li { display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid #eee; }
-.distance-list li:last-child { border-bottom: none; }
-.distance-list i { color: var(--primary-color); margin-right: 0.5rem; }
+    .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 0;
+        min-height: 70px;
+    }
 
-/* --- Winter Notice & FAQ --- */
-.winter-notice { background: #fff3cd; border: 1px solid #ffeaa7; border-radius: var(--border-radius); padding: 2rem; margin-top: 3rem; text-align: center; }
-.winter-notice h3, .winter-notice p { color: #856404; }
-.faq-list { max-width: 800px; margin: 0 auto; }
-.faq-item { background: white; margin-bottom: 1rem; border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); }
-.faq-question { padding: 1.5rem; font-weight: 600; color: var(--primary-color); border-bottom: 1px solid #eee; cursor: pointer; }
-.faq-answer { padding: 1.5rem; color: var(--text-light); display: none; opacity: 0; transition: opacity 0.3s ease; }
+    .logo h1 {
+        font-family: var(--font-heading);
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        line-height: 1.2;
+    }
 
-/* --- Contact & Footer --- */
-.contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; }
-.contact-info { padding: 2rem; }
-.contact-item { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-.contact-icon { width: 50px; height: 50px; background: var(--primary-color); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.footer { background: var(--primary-color); color: var(--white); padding: 4rem 0 2rem; }
-.footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; text-align: center; }
-.footer-section h3 { color: var(--accent-color); }
-.footer-section p, .footer-section a { color: rgba(255, 255, 255, 0.8); }
-.footer-section a:hover { color: var(--white); }
-.social-links { display: flex; justify-content: center; gap: 1rem; margin: 2rem 0; }
-.social-links a { display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 50%; color: var(--white); transition: var(--transition); }
-.social-links a:hover { background: var(--accent-color); color: var(--text-color); transform: translateY(-3px); }
-.footer-bottom { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 2rem; margin-top: 2rem; text-align: center; font-size: 0.9rem; opacity: 0.8; }
+    .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+        align-items: center;
+    }
 
-/* --- Post, Archive & 404 Pages --- */
-.page-content-wrapper { padding-top: 120px; padding-bottom: 60px; min-height: 70vh; }
-.post-header, .archive-header { text-align: center; margin-bottom: 3rem; }
-.post-title, .archive-header h1 { font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem; }
-.post-meta { color: var(--text-light); font-size: 0.9rem; }
-.post-body { max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.8; }
-.post-body img { max-width: 100%; height: auto; border-radius: var(--border-radius); margin: 2rem 0; }
-.post-navigation { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eee; }
-.pagination-nav { display: flex; justify-content: center; gap: 1rem; margin-top: 3rem; }
-.error-content { padding: 8rem 0; text-align: center; min-height: 60vh; display: flex; flex-direction: column; justify-content: center; }
-.error-404 { font-size: 8rem; font-weight: 700; color: var(--primary-color); margin-bottom: 1rem; }
-.error-message { font-size: 1.5rem; margin-bottom: 2rem; }
+    .nav-links a {
+        font-weight: 500;
+        color: var(--text-color);
+        padding: 0.5rem 0;
+        position: relative;
+        transition: var(--transition);
+    }
 
-/* --- Post Grid (Archive & Homepage) --- */
-.posts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-.post-card { background: var(--white); border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; }
-.post-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
-a.post-card-image { display: block; height: 200px; overflow: hidden; background-color: #f0f0f0; }
-.post-card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
-.post-card:hover .post-card-image img { transform: scale(1.05); }
-.post-card-content { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
-.post-card-title { margin: 0 0 0.5rem; font-size: 1.25rem; }
-.post-card-title a { color: var(--primary-color); }
-.post-card-excerpt { color: var(--text-light); margin-bottom: 1rem; flex-grow: 1; }
-.post-card-meta { font-size: 0.9rem; color: #888; }
-.no-results { grid-column: 1 / -1; text-align: center; padding: 3rem; }
-.no-results i { font-size: 4rem; margin-bottom: 1rem; opacity: 0.3; }
+    .nav-links a:hover {
+        color: var(--primary-color);
+    }
 
-/* --- Utility & Animations --- */
-.back-to-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: var(--primary-color); color: var(--white); border: none; border-radius: 50%; cursor: pointer; opacity: 0; visibility: hidden; transition: var(--transition); z-index: 1000; }
-.back-to-top.show { opacity: 1; visibility: visible; }
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-.fade-in { opacity: 0; animation: fadeInUp 0.8s ease forwards; }
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--accent-color);
+        transition: var(--transition);
+    }
 
-/* --- Responsive Design --- */
-@media (max-width: 768px) {
-    .container { padding: 0 15px; }
-    .nav-links { position: fixed; top: 80px; left: -100%; width: 100%; height: calc(100vh - 80px); background: var(--white); flex-direction: column; justify-content: flex-start; align-items: center; padding-top: 2rem; transition: var(--transition); box-shadow: var(--shadow); }
-    .nav-links.active { left: 0; }
-    .mobile-menu { display: flex; }
-    .mobile-menu.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-    .mobile-menu.active span:nth-child(2) { opacity: 0; }
-    .mobile-menu.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
-    .hero h1, .post-title, .archive-header h1 { font-size: 2.5rem; }
-    .hero-subtitle { font-size: 1.2rem; }
-    .about-grid, .location-grid { grid-template-columns: 1fr; }
-    .cta-buttons, .post-navigation { flex-direction: column; align-items: center; gap: 1rem; }
-    .quick-stats { margin-left: 10px; margin-right: 10px; }
-    .error-404 { font-size: 5rem; }
-}
+    .nav-links a:hover::after {
+        width: 100%;
+    }
+
+    .mobile-menu {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        width: 30px;
+        height: 24px;
+        justify-content: space-between;
+    }
+
+    .mobile-menu span {
+        width: 100%;
+        height: 3px;
+        background: var(--text-color);
+        border-radius: 2px;
+        transition: var(--transition);
+    }
+
+    /* Buttons */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 2rem;
+        border-radius: var(--border-radius-sm);
+        font-weight: 600;
+        text-decoration: none;
+        transition: var(--transition);
+        cursor: pointer;
+        border: 2px solid transparent;
+        font-size: 1rem;
+        line-height: 1;
+    }
+
+    .btn-primary {
+        background: var(--primary-color);
+        color: var(--white);
+        border-color: var(--primary-color);
+    }
+
+    .btn-primary:hover {
+        background: transparent;
+        color: var(--primary-color);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+    }
+
+    .btn-secondary {
+        background: transparent;
+        color: var(--secondary-color);
+        border-color: var(--secondary-color);
+    }
+
+    .btn-secondary:hover {
+        background: var(--secondary-color);
+        color: var(--white);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+    }
+
+    /* Sections */
+    .section {
+        padding: var(--spacing-xl) 0;
+        position: relative;
+    }
+
+    .bg-light {
+        background: var(--bg-light);
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: var(--spacing-xl);
+    }
+
+    .section-header h2 {
+        font-family: var(--font-heading);
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    /* Hero Section */
+    .hero {
+        background: linear-gradient(135deg, var(--primary-color) 0%, #1e3a23 100%);
+        color: var(--white);
+        padding: 6rem 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="rgba(255,255,255,0.03)"><polygon points="0,100 1000,0 1000,100"/></svg>');
+        background-size: cover;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 var(--spacing);
+    }
+
+    .hero h1 {
+        font-family: var(--font-heading);
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+    }
+
+    .hero-subtitle {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+        opacity: 0.9;
+    }
+
+    .hero-location {
+        font-size: 1.1rem;
+        margin-bottom: 2.5rem;
+        opacity: 0.8;
+    }
+
+    .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /* Quick Stats */
+    .quick-stats {
+        background: var(--white);
+        box-shadow: var(--shadow);
+        margin: -3rem var(--spacing) 0;
+        border-radius: var(--border-radius);
+        position: relative;
+        z-index: 10;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 0;
+    }
+
+    .stat-item {
+        text-align: center;
+        padding: 3rem 1.5rem;
+        border-right: 1px solid var(--border-light);
+    }
+
+    .stat-item:last-child {
+        border-right: none;
+    }
+
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        background: var(--accent-color);
+        color: var(--white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 1.5rem;
+    }
+
+    .stat-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+    }
+
+    /* About Grid */
+    .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+    }
+
+    .about-content h2 {
+        font-family: var(--font-heading);
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+    }
+
+    .about-content p {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        color: var(--text-light);
+    }
+
+    .about-image {
+        position: relative;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+    }
+
+    .about-image img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        transition: var(--transition);
+    }
+
+    .about-image:hover img {
+        transform: scale(1.05);
+    }
+
+    /* Amenities Grid */
+    .amenities-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .amenity-card {
+        background: var(--white);
+        padding: 2rem;
+        border-radius: var(--border-radius);
+        text-align: center;
+        box-shadow: var(--shadow-light);
+        transition: var(--transition);
+        border: 1px solid var(--border-light);
+    }
+
+    .amenity-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow);
+    }
+
+    .amenity-icon {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: var(--white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 1.8rem;
+    }
+
+    .amenity-card h3 {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 0.8rem;
+        color: var(--primary-color);
+    }
+
+    /* Rooms Grid */
+    .rooms-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .room-card {
+        background: var(--white);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-light);
+        transition: var(--transition);
+    }
+
+    .room-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    .room-card-image {
+        height: 250px;
+        background: linear-gradient(135deg, var(--bg-light), var(--border-light));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-lighter);
+        font-size: 3rem;
+    }
+
+    .room-card-content {
+        padding: 2rem;
+    }
+
+    .room-card-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--primary-color);
+    }
+
+    .room-features {
+        list-style: none;
+        margin-bottom: 1.5rem;
+    }
+
+    .room-features li {
+        padding: 0.5rem 0;
+        color: var(--text-light);
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    .room-features i {
+        color: var(--accent-color);
+        width: 20px;
+    }
+
+    .winter-notice {
+        background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+        padding: 2rem;
+        border-radius: var(--border-radius);
+        border-left: 5px solid #2196f3;
+    }
+
+    .winter-notice h3 {
+        color: #1565c0;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    /* Posts Grid */
+    .posts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+    }
+
+    .post-card {
+        background: var(--white);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-light);
+        transition: var(--transition);
+        border: 1px solid var(--border-light);
+    }
+
+    .post-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow);
+    }
+
+    .post-card-image {
+        height: 200px;
+        background: linear-gradient(135deg, var(--bg-light), var(--border-light));
+        display: block;
+        overflow: hidden;
+    }
+
+    .post-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+    }
+
+    .post-card:hover .post-card-image img {
+        transform: scale(1.05);
+    }
+
+    .post-card-content {
+        padding: 1.5rem;
+    }
+
+    .post-card-title a {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        line-height: 1.3;
+    }
+
+    .post-card-title a:hover {
+        color: var(--secondary-color);
+    }
+
+    .post-card-excerpt {
+        color: var(--text-light);
+        margin: 1rem 0;
+        line-height: 1.6;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .post-card-meta {
+        color: var(--text-lighter);
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    /* Page Content Wrapper */
+    .page-content-wrapper {
+        min-height: 80vh;
+        padding: 2rem 0;
+    }
+
+    /* Post Content */
+    .post-content {
+        background: var(--white);
+        margin: 2rem 0;
+    }
+
+    .post-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid var(--border-light);
+    }
+
+    .post-title {
+        font-family: var(--font-heading);
+        font-size: 2.8rem;
+        color: var(--primary-color);
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+    }
+
+    .post-meta {
+        color: var(--text-light);
+        font-size: 0.95rem;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .post-meta a {
+        color: var(--primary-color);
+    }
+
+    .post-body {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin-bottom: 3rem;
+    }
+
+    .post-body h2, .post-body h3 {
+        margin: 2rem 0 1rem;
+        color: var(--primary-color);
+    }
+
+    .post-body p {
+        margin-bottom: 1.5rem;
+    }
+
+    .post-body img {
+        border-radius: var(--border-radius-sm);
+        margin: 2rem auto;
+        box-shadow: var(--shadow-light);
+    }
+
+    .post-navigation {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        padding-top: 2rem;
+        border-top: 2px solid var(--border-light);
+    }
+
+    /* Archive Content */
+    .archive-content {
+        min-height: 80vh;
+        padding: 2rem 0;
+    }
+
+    .archive-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 2px solid var(--border-light);
+    }
+
+    .archive-header h1 {
+        font-family: var(--font-heading);
+        font-size: 2.5rem;
+        color: var(--primary-color);
+    }
+
+    /* Pagination */
+    .pagination-nav {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 3rem;
+    }
+
+    .pagination-btn {
+        min-width: 150px;
+        justify-content: center;
+    }
+
+    /* No Results */
+    .no-results {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: var(--text-light);
+    }
+
+    .no-results i {
+        font-size: 4rem;
+        color: var(--text-lighter);
+        margin-bottom: 1rem;
+    }
+
+    .no-results h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--text-color);
+    }
+
+    /* Error Page */
+    .error-content {
+        text-align: center;
+        padding: 4rem 0;
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .error-404 {
+        font-size: 8rem;
+        font-weight: bold;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-family: var(--font-heading);
+    }
+
+    .error-content h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: var(--text-color);
+    }
+
+    .error-message {
+        font-size: 1.1rem;
+        color: var(--text-light);
+        margin-bottom: 2rem;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Footer */
+    .footer {
+        background: var(--primary-color);
+        color: var(--white);
+        padding: 3rem 0 1rem;
+        text-align: center;
+    }
+
+    /* Back to Top Button */
+    .back-to-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 50px;
+        height: 50px;
+        background: var(--primary-color);
+        color: var(--white);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1.2rem;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+        z-index: 1000;
+        box-shadow: var(--shadow);
+    }
+
+    .back-to-top:hover {
+        background: var(--secondary-color);
+        transform: translateY(-3px);
+    }
+
+    .back-to-top.visible {
+        display: flex;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        :root {
+            --spacing: 0.8rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 3rem;
+        }
+
+        .nav-links {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            flex-direction: column;
+            padding: 2rem 0;
+            transform: translateX(-100%);
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .nav-links.active {
+            transform: translateX(0);
+        }
+
+        .mobile-menu {
+            display: flex;
+        }
+
+        .mobile-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .mobile-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .hero {
+            padding: 4rem 0;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+        }
+
+        .post-title, .archive-header h1 {
+            font-size: 2rem;
+        }
+
+        .about-grid, .rooms-grid, .amenities-grid, .posts-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .stat-item {
+            border-right: none;
+            border-bottom: 1px solid var(--border-light);
+            padding: 2rem 1rem;
+        }
+
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+
+        .cta-buttons, .post-navigation, .pagination-nav {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .quick-stats {
+            margin-left: 0;
+            margin-right: 0;
+            border-radius: 0;
+        }
+
+        .error-404 {
+            font-size: 5rem;
+        }
+
+        .post-meta {
+            justify-content: center;
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero h1 {
+            font-size: 2rem;
+        }
+
+        .container {
+            padding: 0 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            font-size: 0.9rem;
+        }
+    }
+
+    /* Loading States */
+    .loading {
+        opacity: 0.7;
+        pointer-events: none;
+    }
+
+    /* Print Styles */
+    @media print {
+        .header, .footer, .back-to-top, .mobile-menu, .cta-buttons, .post-navigation {
+            display: none !important;
+        }
+
+        body {
+            color: black !important;
+            background: white !important;
+        }
+
+        .post-content, .archive-content {
+            box-shadow: none !important;
+        }
+    }
     ]]></b:skin>
+
+    <!-- External Resources -->
+    <link href='https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap' rel='stylesheet'/>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css' rel='stylesheet'/>
+    <meta content='width=device-width, initial-scale=1.0' name='viewport'/>
 </head>
 
 <body>
     <div id='outer-wrapper'>
+        <!-- Header -->
         <header class='header'>
             <nav class='nav container'>
-                <a class='logo' href='/'><h1>Conifer View</h1></a>
-                <ul class='nav-links'>
-                    <li><a href='/#home'>Home</a></li><li><a href='/#about'>About</a></li><li><a href='/#rooms'>Rooms</a></li>
-                    <li><a href='/#amenities'>Amenities</a></li><li><a href='/#location'>Location</a></li><li><a href='/#contact'>Contact</a></li>
+                <a class='logo' href='/'>
+                    <h1>Conifer View Guest House</h1>
+                </a>
+                <ul class='nav-links' id='navLinks'>
+                    <li><a href='/'>Home</a></li>
+                    <li><a href='/#about'>About</a></li>
+                    <li><a href='/#rooms'>Rooms</a></li>
+                    <li><a href='/#amenities'>Amenities</a></li>
+                    <li><a href='/#contact'>Contact</a></li>
                     <li><a href='/search/label/Blog'>Blog</a></li>
+                    <li><a href='/search' onclick='toggleSearch(); return false;'><i class='fas fa-search'></i></a></li>
                 </ul>
-                <div class='mobile-menu'><span/><span/><span/></div>
+                <div class='mobile-menu' id='mobileMenu'>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </nav>
+            
+            <!-- Search Box -->
+            <div class='search-container' id='searchContainer' style='display: none; background: var(--white); padding: 1rem; border-top: 1px solid var(--border-light);'>
+                <div class='container'>
+                    <form action='/search' method='get' style='display: flex; gap: 1rem; align-items: center;'>
+                        <input name='q' placeholder='Search posts...' style='flex: 1; padding: 0.8rem; border: 2px solid var(--border-light); border-radius: var(--border-radius-sm); font-size: 1rem;' type='text'/>
+                        <button class='btn btn-primary' type='submit'>Search</button>
+                    </form>
+                </div>
+            </div>
         </header>
 
+        <!-- Main Content -->
         <div id='content-wrapper'>
             <div class='main-wrapper'>
-                
+                <!-- Homepage Content -->
+                <b:if cond='data:view.isHomepage'>
+                    <div class='homepage-content'>
+                        <!-- Hero Section -->
+                        <section class='hero' id='home'>
+                            <div class='hero-content'>
+                                <h1>Your Cozy Base Near Gulmarg</h1>
+                                <p class='hero-subtitle'>Experience warm Kashmiri hospitality at Conifer View Guest House</p>
+                                <p class='hero-location'><i class='fas fa-map-marker-alt'></i> Tangmarg - Gateway to Gulmarg</p>
+                                <div class='cta-buttons'>
+                                    <a class='btn btn-primary' href='#contact'><i class='fas fa-calendar-check'></i> Book Now</a>
+                                    <a class='btn btn-secondary' href='tel:+917006508551'><i class='fas fa-phone'></i> Call Us</a>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Quick Stats -->
+                        <section class='quick-stats'>
+                            <div class='container'>
+                                <div class='stats-grid'>
+                                    <div class='stat-item'>
+                                        <div class='stat-icon'><i class='fas fa-mountain'></i></div>
+                                        <h3 class='stat-title'>11-14 km to Gulmarg</h3>
+                                        <p>30-40 minutes drive</p>
+                                    </div>
+                                    <div class='stat-item'>
+                                        <div class='stat-icon'><i class='fas fa-star'></i></div>
+                                        <h3 class='stat-title'>Highly Rated</h3>
+                                        <p>Excellent guest reviews</p>
+                                    </div>
+                                    <div class='stat-item'>
+                                        <div class='stat-icon'><i class='fas fa-car'></i></div>
+                                        <h3 class='stat-title'>Free Parking</h3>
+                                        <p>Private on-site parking</p>
+                                    </div>
+                                    <div class='stat-item'>
+                                        <div class='stat-icon'><i class='fas fa-home'></i></div>
+                                        <h3 class='stat-title'>Family Homestay</h3>
+                                        <p>Authentic Kashmiri hospitality</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- About Section -->
+                        <section class='section bg-light' id='about'>
+                            <div class='container'>
+                                <div class='about-grid'>
+                                    <div class='about-content'>
+                                        <h2>Welcome to Conifer View</h2>
+                                        <p>Conifer View Guest House is a cozy mountain homestay in Tangmarg — the peaceful gateway to Gulmarg. Set on Iqbal Colony Road, our house offers warm Kashmiri hospitality, clean comfortable rooms, and stunning views of pine-clad slopes.</p>
+                                        <p>Whether you're here for gondola rides, skiing in winter, or exploring Drung Waterfall, our family-run guest house provides the perfect "home away from home" experience in the heart of Kashmir's natural beauty.</p>
+                                        <div class='cta-buttons' style='margin-top: 2rem;'>
+                                            <a class='btn btn-primary' href='#rooms'>View Rooms</a>
+                                            <a class='btn btn-secondary' href='/search/label/About'>Learn More</a>
+                                        </div>
+                                    </div>
+                                    <div class='about-image'>
+                                        <img alt='Conifer View Guest House exterior view showing the building surrounded by pine trees' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0__cRDWLERYZhcNeW5VVNaS8QEzVTxilkRzLN-Zac_6aRKSFZFDwvKfIjRYtVXDWQC_bsgiK5PhD9wMq4Vhk1jnwr5MhfrG3flJyyCPfHDpcIjbTdCjTWK7UFp6I2-gFzU0XSOSzO3VqAKgnrZtZogbKDvqOt09R-alnpyY-baVsPGBTxwIPZMONsmZQ/s1280/IMG-20231213-WA0075.jpg'/>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Amenities Section -->
+                        <section class='section' id='amenities'>
+                            <div class='container'>
+                                <div class='section-header'>
+                                    <h2>Our Amenities</h2>
+                                    <p>Everything you need for a comfortable stay in Kashmir</p>
+                                </div>
+                                <div class='amenities-grid'>
+                                    <div class='amenity-card'>
+                                        <div class='amenity-icon'><i class='fas fa-car'></i></div>
+                                        <h3>Free Parking</h3>
+                                        <p>Private on-site parking available for all guests</p>
+                                    </div>
+                                    <div class='amenity-card'>
+                                        <div class='amenity-icon'><i class='fas fa-utensils'></i></div>
+                                        <h3>In-Room Breakfast</h3>
+                                        <p>Delicious Kashmiri breakfast served in your room</p>
+                                    </div>
+                                    <div class='amenity-card'>
+                                        <div class='amenity-icon'><i class='fas fa-leaf'></i></div>
+                                        <h3>Garden &amp; Terrace</h3>
+                                        <p>Beautiful outdoor spaces to relax and enjoy mountain views</p>
+                                    </div>
+                                    <div class='amenity-card'>
+                                        <div class='amenity-icon'><i class='fas fa-wifi'></i></div>
+                                        <h3>Free Wi-Fi</h3>
+                                        <p>Stay connected with complimentary high-speed internet</p>
+                                    </div>
+                                    <div class='amenity-card'>
+                                        <div class='amenity-icon'><i class='fas fa-clock'></i></div>
+                                        <h3>24-Hour Support</h3>
+                                        <p>Our family is always available to assist you</p>
+                                    </div>
+                                    <div class='amenity-card'>
+                                        <div class='amenity-icon'><i class='fas fa-skiing'></i></div>
+                                        <h3>Winter Activities</h3>
+                                        <p>Easy access to Gulmarg ski slopes and winter sports</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Rooms Section -->
+                        <section class='section bg-light' id='rooms'>
+                            <div class='container'>
+                                <div class='section-header'>
+                                    <h2>Comfortable Accommodations</h2>
+                                    <p>Clean, cozy rooms with all essential amenities</p>
+                                </div>
+                                <div class='rooms-grid'>
+                                    <div class='room-card'>
+                                        <div class='room-card-image'>
+                                            <i class='fas fa-bed'></i>
+                                        </div>
+                                        <div class='room-card-content'>
+                                            <h3 class='room-card-title'>Double Room</h3>
+                                            <ul class='room-features'>
+                                                <li><i class='fas fa-bed'></i> 1 Comfortable King Bed</li>
+                                                <li><i class='fas fa-bath'></i> Private Bathroom with Hot Water</li>
+                                                <li><i class='fas fa-mountain'></i> Stunning Mountain Views</li>
+                                                <li><i class='fas fa-thermometer-half'></i> Room Heating Available</li>
+                                            </ul>
+                                            <a class='btn btn-primary' href='#contact'>Book Now</a>
+                                        </div>
+                                    </div>
+                                    <div class='room-card'>
+                                        <div class='room-card-image'>
+                                            <i class='fas fa-bed'></i>
+                                        </div>
+                                        <div class='room-card-content'>
+                                            <h3 class='room-card-title'>Twin/Double Room</h3>
+                                            <ul class='room-features'>
+                                                <li><i class='fas fa-bed'></i> Flexible Twin or Double Bedding</li>
+                                                <li><i class='fas fa-bath'></i> Modern Private Bathroom</li>
+                                                <li><i class='fas fa-tree'></i> Beautiful Garden Views</li>
+                                                <li><i class='fas fa-wifi'></i> High-Speed Wi-Fi</li>
+                                            </ul>
+                                            <a class='btn btn-primary' href='#contact'>Book Now</a>
+                                        </div>
+                                    </div>
+                                    <div class='room-card'>
+                                        <div class='room-card-image'>
+                                            <i class='fas fa-users'></i>
+                                        </div>
+                                        <div class='room-card-content'>
+                                            <h3 class='room-card-title'>Family Room</h3>
+                                            <ul class='room-features'>
+                                                <li><i class='fas fa-bed'></i> Multiple Beds for Families</li>
+                                                <li><i class='fas fa-bath'></i> Spacious Private Bathroom</li>
+                                                <li><i class='fas fa-users'></i> Perfect for Group Travel</li>
+                                                <li><i class='fas fa-gamepad'></i> Entertainment Area</li>
+                                            </ul>
+                                            <a class='btn btn-primary' href='#contact'>Book Now</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='winter-notice'>
+                                    <h3><i class='fas fa-snowflake'></i> Winter Travel Notice</h3>
+                                    <p>During heavy snowfall, the Tangmarg–Gulmarg road may require snow chains or 4×4 vehicles. We provide up-to-date road condition information and can arrange transportation assistance. Contact us for current weather and road updates.</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Blog Section -->
+                        <section class='section' id='blog'>
+                            <div class='container'>
+                                <div class='section-header'>
+                                    <h2>Latest Updates &amp; Blog Posts</h2>
+                                    <p>Stay informed about Kashmir travel, local attractions, and guest house news</p>
+                                </div>
+                                <div class='posts-grid'>
+                                    <b:section class='latest-posts' id='latest-posts' maxwidgets='1'>
+                                        <b:widget id='Blog2' locked='true' title='Latest Blog Posts' type='Blog' version='1'>
+                                            <b:widget-settings>
+                                                <b:widget-setting name='showDateHeader'>true</b:widget-setting>
+                                                <b:widget-setting name='showShareButtons'>false</b:widget-setting>
+                                                <b:widget-setting name='showCommentLink'>false</b:widget-setting>
+                                                <b:widget-setting name='showAuthor'>false</b:widget-setting>
+                                                <b:widget-setting name='showLabels'>true</b:widget-setting>
+                                                <b:widget-setting name='showTimestamp'>true</b:widget-setting>
+                                            </b:widget-settings>
+                                            <b:includable id='main'>
+                                                <b:if cond='data:posts'>
+                                                    <b:loop values='data:posts take 3' var='post'>
+                                                        <article class='post-card'>
+                                                            <a class='post-card-image' expr:href='data:post.url'>
+                                                                <b:if cond='data:post.featuredImage'>
+                                                                    <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 600, "16:9")'/>
+                                                                <b:else/>
+                                                                    <i class='fas fa-image'></i>
+                                                                </b:if>
+                                                            </a>
+                                                            <div class='post-card-content'>
+                                                                <h3 class='post-card-title'>
+                                                                    <a expr:href='data:post.url'><data:post.title/></a>
+                                                                </h3>
+                                                                <p class='post-card-excerpt'><data:post.snippet/></p>
+                                                                <div class='post-card-meta'>
+                                                                    <span><i class='fas fa-calendar'></i> <data:post.dateHeader/></span>
+                                                                    <b:if cond='data:post.labels'>
+                                                                        <span><i class='fas fa-tags'></i>
+                                                                            <b:loop values='data:post.labels take 1' var='label'>
+                                                                                <a expr:href='data:label.url'><data:label.name/></a>
+                                                                            </b:loop>
+                                                                        </span>
+                                                                    </b:if>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                    </b:loop>
+                                                <b:else/>
+                                                    <div style='grid-column: 1 / -1; text-align: center; padding: 2rem; color: var(--text-light);'>
+                                                        <i class='fas fa-blog' style='font-size: 3rem; margin-bottom: 1rem; display: block;'></i>
+                                                        <p>No blog posts available yet. Check back soon for updates!</p>
+                                                    </div>
+                                                </b:if>
+                                                <div style='grid-column: 1 / -1; text-align: center; margin-top: 2rem;'>
+                                                    <a class='btn btn-secondary' href='/search/label/Blog'>View All Posts</a>
+                                                </div>
+                                            </b:includable>
+                                        </b:widget>
+                                    </b:section>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Contact Section -->
+                        <section class='section bg-light' id='contact'>
+                            <div class='container'>
+                                <div class='section-header'>
+                                    <h2>Contact &amp; Booking</h2>
+                                    <p>Ready to experience Kashmir? Get in touch with us</p>
+                                </div>
+                                <div style='display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; align-items: start;'>
+                                    <div style='background: var(--white); padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--shadow-light);'>
+                                        <h3 style='color: var(--primary-color); margin-bottom: 1.5rem; font-size: 1.4rem;'>Contact Information</h3>
+                                        <div style='space-y: 1rem;'>
+                                            <p style='display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;'>
+                                                <i class='fas fa-phone' style='color: var(--accent-color); width: 20px;'></i>
+                                                <a href='tel:+917006508551' style='color: var(--primary-color); font-weight: 500;'>+91-70065-08551</a>
+                                            </p>
+                                            <p style='display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem;'>
+                                                <i class='fas fa-map-marker-alt' style='color: var(--accent-color); width: 20px; margin-top: 0.2rem;'></i>
+                                                <span>Iqbal Colony Road, Tangmarg<br/>Baramulla, Jammu and Kashmir 193402</span>
+                                            </p>
+                                            <p style='display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;'>
+                                                <i class='fas fa-mountain' style='color: var(--accent-color); width: 20px;'></i>
+                                                <span>11-14 km from Gulmarg (30-40 min drive)</span>
+                                            </p>
+                                        </div>
+                                        <div style='margin-top: 2rem;'>
+                                            <a class='btn btn-primary' href='tel:+917006508551' style='width: 100%; justify-content: center; margin-bottom: 1rem;'>
+                                                <i class='fas fa-phone'></i> Call Now
+                                            </a>
+                                            <a class='btn btn-secondary' href='https://wa.me/917006508551' style='width: 100%; justify-content: center;'>
+                                                <i class='fab fa-whatsapp'></i> WhatsApp
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div style='background: var(--white); padding: 2rem; border-radius: var(--border-radius); box-shadow: var(--shadow-light);'>
+                                        <h3 style='color: var(--primary-color); margin-bottom: 1.5rem; font-size: 1.4rem;'>Quick Facts</h3>
+                                        <ul style='list-style: none; space-y: 0.8rem;'>
+                                            <li style='display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem;'>
+                                                <i class='fas fa-check-circle' style='color: var(--accent-color);'></i>
+                                                <span>Family-run homestay since 2015</span>
+                                            </li>
+                                            <li style='display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem;'>
+                                                <i class='fas fa-check-circle' style='color: var(--accent-color);'></i>
+                                                <span>All rooms with private bathrooms</span>
+                                            </li>
+                                            <li style='display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem;'>
+                                                <i class='fas fa-check-circle' style='color: var(--accent-color);'></i>
+                                                <span>Free parking and Wi-Fi</span>
+                                            </li>
+                                            <li style='display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem;'>
+                                                <i class='fas fa-check-circle' style='color: var(--accent-color);'></i>
+                                                <span>Kashmiri breakfast included</span>
+                                            </li>
+                                            <li style='display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem;'>
+                                                <i class='fas fa-check-circle' style='color: var(--accent-color);'></i>
+                                                <span>24/7 assistance available</span>
+                                            </li>
+                                            <li style='display: flex; align-items: center; gap: 1rem; margin-bottom: 0.8rem;'>
+                                                <i class='fas fa-check-circle' style='color: var(--accent-color);'></i>
+                                                <span>Transportation arrangements</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </b:if>
+
+                <!-- Non-Homepage Content -->
                 <b:if cond='!data:view.isHomepage'>
                     <div class='page-content-wrapper'>
                         <b:section class='main' id='main' maxwidgets='1' showaddelement='no'>
-                            <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='2'>
+                            <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='1'>
+                                <b:widget-settings>
+                                    <b:widget-setting name='showDateHeader'>true</b:widget-setting>
+                                    <b:widget-setting name='showShareButtons'>true</b:widget-setting>
+                                    <b:widget-setting name='showCommentLink'>true</b:widget-setting>
+                                    <b:widget-setting name='showAuthor'>true</b:widget-setting>
+                                    <b:widget-setting name='showLabels'>true</b:widget-setting>
+                                    <b:widget-setting name='showLocation'>false</b:widget-setting>
+                                    <b:widget-setting name='showTimestamp'>true</b:widget-setting>
+                                </b:widget-settings>
+                                
                                 <b:includable id='main'>
+                                    <!-- Individual Post or Page -->
                                     <b:if cond='data:view.isPost or data:view.isPage'>
                                         <b:loop values='data:posts' var='post'>
                                             <article class='post-content'>
                                                 <div class='container'>
                                                     <header class='post-header'>
                                                         <h1 class='post-title'><data:post.title/></h1>
-                                                        <b:if cond='data:view.isPost'>
-                                                            <div class='post-meta'>
-                                                                <span><i class='fas fa-calendar'/> <data:post.dateHeader/></span>
-                                                                <b:if cond='data:post.author'><span style='margin-left: 1rem;'><i class='fas fa-user'/> <data:post.author/></span></b:if>
-                                                                <b:if cond='data:post.labels'><span style='margin-left: 1rem;'><i class='fas fa-tags'/> <b:loop values='data:post.labels' var='label'><a expr:href='data:label.url' rel='tag'><data:label.name/></a><b:if cond='not data:label.isLast'>, </b:if></b:loop></span></b:if>
-                                                            </div>
-                                                        </b:if>
+                                                        <div class='post-meta'>
+                                                            <span><i class='fas fa-calendar'></i> <data:post.dateHeader/></span>
+                                                            <b:if cond='data:post.author'>
+                                                                <span><i class='fas fa-user'></i> <data:post.author/></span>
+                                                            </b:if>
+                                                            <b:if cond='data:post.labels'>
+                                                                <span><i class='fas fa-tags'></i> 
+                                                                    <b:loop values='data:post.labels' var='label'>
+                                                                        <a expr:href='data:label.url' style='color: var(--primary-color);'><data:label.name/></a><b:if cond='not data:label.isLast'>, </b:if>
+                                                                    </b:loop>
+                                                                </span>
+                                                            </b:if>
+                                                        </div>
                                                     </header>
-                                                    <div class='post-body'><data:post.body/></div>
-                                                    <b:include cond='data:view.isPost' data='post' name='comment_picker'/>
-                                                    <nav class='post-navigation'>
-                                                        <b:include data='{ newer: data:newerPageUrl, older: data:olderPageUrl }' name='nextprev'/>
-                                                    </nav>
+                                                    <div class='post-body'>
+                                                        <data:post.body/>
+                                                    </div>
+                                                    
+                                                    <!-- Post Navigation -->
+                                                    <b:if cond='data:newerPageUrl or data:olderPageUrl'>
+                                                        <nav class='post-navigation'>
+                                                            <b:if cond='data:newerPageUrl'>
+                                                                <a class='btn btn-secondary' expr:href='data:newerPageUrl'>
+                                                                    <i class='fas fa-arrow-left'></i> Newer Post
+                                                                </a>
+                                                            </b:if>
+                                                            <b:if cond='data:olderPageUrl'>
+                                                                <a class='btn btn-primary' expr:href='data:olderPageUrl'>
+                                                                    Older Post <i class='fas fa-arrow-right'></i>
+                                                                </a>
+                                                            </b:if>
+                                                        </nav>
+                                                    </b:if>
+                                                    
+                                                    <!-- Comments Section -->
+                                                    <b:if cond='data:view.isPost'>
+                                                        <div style='margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--border-light);'>
+                                                            <b:include data='post' name='comment_picker'/>
+                                                        </div>
+                                                    </b:if>
                                                 </div>
                                             </article>
                                         </b:loop>
                                     </b:if>
 
-                                    <b:if cond='data:view.isArchive'>
+                                    <!-- Archive, Search, and Label Pages -->
+                                    <b:if cond='data:view.isArchive or data:view.isSearch or data:view.isLabelSearch'>
                                         <div class='archive-content'>
                                             <div class='container'>
                                                 <header class='archive-header'>
                                                     <h1>
-                                                        <b:if cond='data:view.isLabelSearch'>Posts tagged &quot;<data:view.search.label/>&quot;
-                                                        <b:elseif cond='data:view.isSearch'/>Search results for &quot;<data:view.search.query/>&quot;
-                                                        <b:else/>Blog Archive</b:if>
+                                                        <b:if cond='data:view.isLabelSearch'>
+                                                            Posts tagged with &quot;<data:view.search.label/>&quot;
+                                                        <b:elseif cond='data:view.isSearch'/>
+                                                            Search results for &quot;<data:view.search.query/>&quot;
+                                                        <b:else/>
+                                                            Blog Archive
+                                                        </b:if>
                                                     </h1>
+                                                    <b:if cond='data:view.isLabelSearch or data:view.isSearch'>
+                                                        <p style='margin-top: 1rem; color: var(--text-light);'>
+                                                            <b:if cond='data:posts'>
+                                                                Found <span style='font-weight: 600; color: var(--primary-color);'><b:eval expr='data:posts.size'/></span> post(s)
+                                                            <b:else/>
+                                                                No posts found
+                                                            </b:if>
+                                                        </p>
+                                                    </b:if>
                                                 </header>
+                                                
                                                 <div class='posts-grid'>
                                                     <b:if cond='data:posts'>
                                                         <b:loop values='data:posts' var='post'>
-                                                            <b:include data='post' name='post-card'/>
+                                                            <article class='post-card'>
+                                                                <a class='post-card-image' expr:href='data:post.url'>
+                                                                    <b:if cond='data:post.featuredImage'>
+                                                                        <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 600, "16:9")'/>
+                                                                    <b:else/>
+                                                                        <i class='fas fa-image'></i>
+                                                                    </b:if>
+                                                                </a>
+                                                                <div class='post-card-content'>
+                                                                    <h3 class='post-card-title'>
+                                                                        <a expr:href='data:post.url'><data:post.title/></a>
+                                                                    </h3>
+                                                                    <p class='post-card-excerpt'><data:post.snippet/></p>
+                                                                    <div class='post-card-meta'>
+                                                                        <span><i class='fas fa-calendar'></i> <data:post.dateHeader/></span>
+                                                                        <b:if cond='data:post.author'>
+                                                                            <span><i class='fas fa-user'></i> <data:post.author/></span>
+                                                                        </b:if>
+                                                                        <b:if cond='data:post.labels'>
+                                                                            <span><i class='fas fa-tags'></i>
+                                                                                <b:loop values='data:post.labels take 2' var='label'>
+                                                                                    <a expr:href='data:label.url' style='color: var(--primary-color);'><data:label.name/></a><b:if cond='not data:label.isLast'>, </b:if>
+                                                                                </b:loop>
+                                                                            </span>
+                                                                        </b:if>
+                                                                    </div>
+                                                                </div>
+                                                            </article>
                                                         </b:loop>
                                                     <b:else/>
                                                         <div class='no-results'>
-                                                            <i class='fas fa-search'/><h3>No posts found.</h3>
-                                                            <a href='/' class='btn btn-primary'>Back to Homepage</a>
+                                                            <i class='fas fa-search'></i>
+                                                            <h3>No posts found</h3>
+                                                            <p>
+                                                                <b:if cond='data:view.isSearch'>
+                                                                    No posts found for &quot;<data:view.search.query/>&quot;. Try different keywords or browse our categories.
+                                                                <b:elseif cond='data:view.isLabelSearch'/>
+                                                                    No posts found with the label &quot;<data:view.search.label/>&quot;. Browse other topics or return to the homepage.
+                                                                <b:else/>
+                                                                    No archived posts available at this time.
+                                                                </b:if>
+                                                            </p>
+                                                            <div style='margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;'>
+                                                                <a href='/' class='btn btn-primary'>Back to Homepage</a>
+                                                                <a href='/search/label/Blog' class='btn btn-secondary'>Browse All Posts</a>
+                                                            </div>
                                                         </div>
                                                     </b:if>
                                                 </div>
-                                                <b:include data='{ newer: data:newerPageUrl, older: data:olderPageUrl }' name='nextprev'/>
+                                                
+                                                <!-- Pagination -->
+                                                <b:if cond='data:posts and (data:newerPageUrl or data:olderPageUrl)'>
+                                                    <nav class='pagination-nav'>
+                                                        <b:if cond='data:newerPageUrl'>
+                                                            <a class='btn btn-secondary pagination-btn' expr:href='data:newerPageUrl'>
+                                                                <i class='fas fa-arrow-left'></i> Newer Posts
+                                                            </a>
+                                                        </b:if>
+                                                        <b:if cond='data:olderPageUrl'>
+                                                            <a class='btn btn-primary pagination-btn' expr:href='data:olderPageUrl'>
+                                                                Older Posts <i class='fas fa-arrow-right'></i>
+                                                            </a>
+                                                        </b:if>
+                                                    </nav>
+                                                </b:if>
                                             </div>
                                         </div>
                                     </b:if>
 
+                                    <!-- 404 Error Page -->
                                     <b:if cond='data:view.isError'>
                                         <div class='error-content'>
-                                            <div class='error-404'>404</div><h2>Page Not Found</h2>
-                                            <p class='error-message'>Sorry, the page you are looking for doesn&#39;t exist or has been moved.</p>
-                                            <div class='cta-buttons'>
-                                                <a class='btn btn-primary' href='/'><i class='fas fa-home'/> Go Home</a>
-                                                <a class='btn btn-secondary' href='#contact' style='color: var(--text-color); border-color: var(--text-color);'><i class='fas fa-envelope'/> Contact</a>
+                                            <div class='container'>
+                                                <div class='error-404'>404</div>
+                                                <h2>Oops! Page Not Found</h2>
+                                                <p class='error-message'>
+                                                    Sorry, the page you are looking for doesn't exist or has been moved. It might have been deleted, or you may have typed the URL incorrectly.
+                                                </p>
+                                                <div class='cta-buttons'>
+                                                    <a class='btn btn-primary' href='/'>
+                                                        <i class='fas fa-home'></i> Go Home
+                                                    </a>
+                                                    <a class='btn btn-secondary' href='/search/label/Blog'>
+                                                        <i class='fas fa-blog'></i> Browse Blog
+                                                    </a>
+                                                    <a class='btn btn-secondary' href='#contact' onclick='window.location.href="/#contact"'>
+                                                        <i class='fas fa-envelope'></i> Contact Us
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </b:if>
                                 </b:includable>
                                 
-                                <b:includable id='post-card' var='post'>
-                                    <article class='post-card'>
-                                        <a class='post-card-image' expr:href='data:post.url'>
-                                            <b:if cond='data:post.featuredImage'>
-                                              <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 600, "16:9")'/>
-                                            </b:if>
-                                        </a>
-                                        <div class='post-card-content'>
-                                            <h3 class='post-card-title'><a expr:href='data:post.url'><data:post.title/></a></h3>
-                                            <p class='post-card-excerpt'><data:post.snippet/></p>
-                                            <div class='post-card-meta'><span><data:post.dateHeader/></span></div>
-                                        </div>
-                                    </article>
+                                <!-- Comments -->
+                                <b:includable id='comment_picker' var='post'>
+                                    <b:include data='post' name='comments'/>
                                 </b:includable>
                                 
-                                <b:includable id='nextprev'>
-                                    <nav class='pagination-nav'>
-                                        <b:if cond='data:newer'>
-                                            <a class='btn btn-secondary pagination-btn' expr:href='data:newer'><i class='fas fa-arrow-left'/> Newer Posts</a>
-                                        </b:if>
-                                        <b:if cond='data:older'>
-                                            <a class='btn btn-primary pagination-btn' expr:href='data:older'>Older Posts <i class='fas fa-arrow-right'/></a>
-                                        </b:if>
-                                    </nav>
+                                <b:includable id='comments' var='post'>
+                                    <div id='comments-section'>
+                                        <h3 style='color: var(--primary-color); margin-bottom: 2rem; font-size: 1.5rem;'>
+                                            <i class='fas fa-comments'></i> Comments
+                                        </h3>
+                                        <b:include data='post' name='threaded_comments'/>
+                                    </div>
                                 </b:includable>
-
-                                <b:includable id='comment_picker' var='post'/>
                             </b:widget>
                         </b:section>
-                    </div>
-                </b:if>
-                
-                <b:if cond='data:view.isHomepage'>
-                    <div class='homepage-content'>
-                        <section class='hero' id='home'><div class='hero-content'><h1>Your Cozy Base Near Gulmarg</h1><p class='hero-subtitle'>Find warm Kashmiri hospitality at Conifer View Guest House</p><p class='hero-location'><i class='fas fa-map-marker-alt'/> Tangmarg - Gateway to Gulmarg</p><div class='cta-buttons'><a class='btn btn-primary' href='#contact'><i class='fas fa-calendar-check'/> Book Now</a><a class='btn btn-secondary' href='tel:+917006508551'><i class='fas fa-phone'/> Call Us</a></div></div></section>
-                        <section class='quick-stats'><div class='container'><div class='stats-grid'><div class='stat-item'><div class='stat-icon'><i class='fas fa-mountain'/></div><h3 class='stat-title'>11-14 km to Gulmarg</h3><p>30-40 minutes drive</p></div><div class='stat-item'><div class='stat-icon'><i class='fas fa-star'/></div><h3 class='stat-title'>Highly Rated</h3><p>Excellent guest reviews</p></div><div class='stat-item'><div class='stat-icon'><i class='fas fa-car'/></div><h3 class='stat-title'>Free Parking</h3><p>Private on-site parking</p></div><div class='stat-item'><div class='stat-icon'><i class='fas fa-home'/></div><h3 class='stat-title'>Family Homestay</h3><p>Kashmiri hospitality</p></div></div></div></section>
-                        <section class='section bg-light' id='about'><div class='container'><div class='about-grid'><div class='about-content'><h2>Welcome to Conifer View</h2><p>Conifer View Guest House is a cozy mountain homestay in Tangmarg &#8212; the peaceful gateway to Gulmarg. Set on Iqbal Colony Road, the house offers warm Kashmiri hospitality, clean rooms, and views of pine-clad slopes.</p><p>It&#39;s a practical base for gondola rides, skiing in winter, and day trips to Drung Waterfall. Our family-run guest house provides a &quot;feel at home while away from home&quot; experience.</p></div><div class='about-image'><img alt='Conifer View Guest House exterior' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0__cRDWLERYZhcNeW5VVNaS8QEzVTxilkRzLN-Zac_6aRKSFZFDwvKfIjRYtVXDWQC_bsgiK5PhD9wMq4Vhk1jnwr5MhfrG3flJyyCPfHDpcIjbTdCjTWK7UFp6I2-gFzU0XSOSzO3VqAKgnrZtZogbKDvqOt09R-alnpyY-baVsPGBTxwIPZMONsmZQ/s1280/IMG-20231213-WA0075.jpg'/></div></div></div></section>
-                        <section class='section' id='amenities'><div class='container'><div class='section-header'><h2>Our Amenities</h2></div><div class='amenities-grid'><div class='amenity-card'><div class='amenity-icon'><i class='fas fa-car'/></div><h3>Free Parking</h3><p>Private on-site parking</p></div><div class='amenity-card'><div class='amenity-icon'><i class='fas fa-utensils'/></div><h3>In-Room Breakfast</h3><p>Multiple options available</p></div><div class='amenity-card'><div class='amenity-icon'><i class='fas fa-leaf'/></div><h3>Garden &amp; Terrace</h3><p>Relax and enjoy the view</p></div><div class='amenity-card'><div class='amenity-icon'><i class='fas fa-wifi'/></div><h3>Free Wi-Fi</h3><p>Stay connected</p></div><div class='amenity-card'><div class='amenity-icon'><i class='fas fa-clock'/></div><h3>24-Hour Front Desk</h3><p>Always here to help</p></div><div class='amenity-card'><div class='amenity-icon'><i class='fas fa-skiing'/></div><h3>Winter Access</h3><p>Close to skiing areas</p></div></div></div></section>
-                        <section class='section bg-light' id='rooms'><div class='container'><div class='section-header'><h2>Our Rooms</h2></div><div class='rooms-grid'><div class='room-card'><div class='room-card-image'/><div class='room-card-content'><h3>Double Room</h3><ul class='room-features'><li><i class='fas fa-bed'/> 1 King Bed</li><li><i class='fas fa-bath'/> Private Bathroom</li><li><i class='fas fa-mountain'/> Mountain Views</li></ul><a class='btn btn-primary' href='#contact'>Book Now</a></div></div><div class='room-card'><div class='room-card-image'/><div class='room-card-content'><h3>Twin/Double Room</h3><ul class='room-features'><li><i class='fas fa-bed'/> Flexible Bedding</li><li><i class='fas fa-bath'/> Private Bathroom</li><li><i class='fas fa-tree'/> Outdoor Views</li></ul><a class='btn btn-primary' href='#contact'>Book Now</a></div></div><div class='room-card'><div class='room-card-image'/><div class='room-card-content'><h3>Family Room</h3><ul class='room-features'><li><i class='fas fa-bed'/> Multiple Beds</li><li><i class='fas fa-bath'/> Private Bathroom</li><li><i class='fas fa-users'/> Perfect for Families</li></ul><a class='btn btn-primary' href='#contact'>Book Now</a></div></div></div><div class='winter-notice'><h3><i class='fas fa-snowflake'/> Winter Travel Notice</h3><p>The Tangmarg–Gulmarg road can require snow chains or 4×4 vehicles after fresh snowfall. Contact us for the latest road conditions.</p></div></div></section>
-                        <section class='section' id='location'><div class='container'><div class='section-header'><h2>Prime Location</h2></div><div class='location-grid'><div class='location-map-placeholder'/><div class='location-info'><h3>Distances from Conifer View</h3><ul class='distance-list'><li><span><i class='fas fa-cable-car'/> Gulmarg Gondola</span><strong>11-14 km</strong></li><li><span><i class='fas fa-plane'/> Srinagar Airport</span><strong>55 km</strong></li><li><span><i class='fas fa-city'/> Srinagar City</span><strong>39-56 km</strong></li><li><span><i class='fas fa-water'/> Drung Waterfall</span><strong>Nearby</strong></li></ul></div></div></div></section>
-                        <section class='section bg-light' id='reviews'><div class='container'><div class='section-header'><h2>What Our Guests Say</h2></div><div class='reviews-grid'><div class='review-card'><div class='review-header'><div class='review-rating'><i class='fas fa-star'/><i class='fas fa-star'/><i class='fas fa-star'/><i class='fas fa-star'/><i class='fas fa-star'/></div><span class='review-platform'>Booking.com</span></div><p class='review-text'>&quot;This was a beautiful hotel with amazing staff. The location is perfect for exploring Gulmarg and the hospitality was exceptional.&quot;</p><p class='reviewer-name'>- Pankaj, India</p></div><div class='review-card'><div class='review-header'><div class='review-rating'><i class='fas fa-star'/><i class='fas fa-star'/><i class='fas fa-star'/><i class='fas fa-star'/><i class='fas fa-star'/></div><span class='review-platform'>MakeMyTrip</span></div><p class='review-text'>&quot;This homestay was the highlight of my Kashmir trip. If you&#39;re looking for a traditional Kashmiri house with valley views, this is the best one.&quot;</p><p class='reviewer-name'>- Priyanka Aiwale</p></div><div class='review-card'><div class='review-header'><div class='review-rating'><i class='fas fa-star'/><i class='fas fa-star'/><i class='fas fa-star'/><i class='fas fa-star'/><i class='fas fa-star'/></div><span class='review-platform'>MakeMyTrip</span></div><p class='review-text'>&quot;Neat and clean property with affordable price. Caretaker is very humble and helpful. Highly recommended for families.&quot;</p><p class='reviewer-name'>- Deepak Rathore</p></div></div></div></section>
-                        <section class='section' id='contact'><div class='container'><div class='section-header'><h2>Get In Touch</h2></div><div class='contact-grid'><div class='contact-info'><h3>Contact Information</h3><div class='contact-item'><div class='contact-icon'><i class='fas fa-phone'/></div><div><h4>Phone</h4><p><a href='tel:+917006508551'>+91 70065 08551</a></p></div></div><div class='contact-item'><div class='contact-icon'><i class='fas fa-map-marker-alt'/></div><div><h4>Address</h4><p>Iqbal Colony Road, Tangmarg<br/>Baramulla, J&amp;K 193402</p></div></div></div><div class='contact-info'><h3>House Rules</h3><div class='contact-item'><div class='contact-icon'><i class='fas fa-clock'/></div><div><h4>Check-in / Check-out</h4><p>1:00 PM - 6:00 PM / Until 11:00 AM</p></div></div><div class='contact-item'><div class='contact-icon'><i class='fas fa-ban'/></div><div><h4>Restrictions</h4><p>No smoking, No pets, No parties</p></div></div></div></div></div></section>
-                        <section class='section bg-light' id='faq'><div class='container'><div class='section-header'><h2>Frequently Asked Questions</h2></div><div class='faq-list'><div class='faq-item'><div class='faq-question'><i class='fas fa-question-circle'/> How far is Conifer View from Gulmarg?</div><div class='faq-answer'>About 11–14 km by road (≈30–40 minutes, traffic &amp; snow dependent).</div></div><div class='faq-item'><div class='faq-question'><i class='fas fa-question-circle'/> Do you have parking?</div><div class='faq-answer'>Yes, free private parking is available on site for all guests.</div></div><div class='faq-item'><div class='faq-question'><i class='fas fa-question-circle'/> Is breakfast available?</div><div class='faq-answer'>Yes — in-room breakfast with vegetarian, halal, and kosher options available.</div></div><div class='faq-item'><div class='faq-question'><i class='fas fa-question-circle'/> Do you help with local tours or gondola tickets?</div><div class='faq-answer'>Yes, our front desk can help arrange taxis, local tours, and provide guidance for gondola tickets and ski rentals.</div></div></div></div></section>
-
-                        <section class='section'><div class='container'><div class='section-header'><h2>Latest Updates</h2></div><div class='posts-grid'>
-                            <b:section class='latest-posts' id='latest-posts' maxwidgets='1'>
-                                <b:widget id='Blog2' locked='true' title='Latest Updates' type='Blog' version='2'>
-                                    <b:includable id='main'>
-                                        <b:loop values='data:posts where (p => p.labels any (l => l.name == "Blog")) take 3' var='post'>
-                                            <b:include data='post' name='post-card'/>
-                                        </b:loop>
-                                    </b:includable>
-                                    <b:includable id='post-card' var='post'>
-                                        <article class='post-card'>
-                                            <a class='post-card-image' expr:href='data:post.url'>
-                                                <b:if cond='data:post.featuredImage'>
-                                                  <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 600, "16:9")'/>
-                                                </b:if>
-                                            </a>
-                                            <div class='post-card-content'>
-                                                <h3 class='post-card-title'><a expr:href='data:post.url'><data:post.title/></a></h3>
-                                                <p class='post-card-excerpt'><data:post.snippet/></p>
-                                                <div class='post-card-meta'><span><data:post.dateHeader/></span></div>
-                                            </div>
-                                        </article>
-                                    </b:includable>
-                                </b:widget>
-                            </b:section>
-                        </div></div></section>
                     </div>
                 </b:if>
             </div>
         </div>
 
-        <footer class='footer'><div class='container'><div class='footer-content'><div class='footer-section'><h3>Conifer View Guest House</h3><p>Your cozy mountain homestay in Tangmarg, gateway to Gulmarg. Experience authentic Kashmiri hospitality with modern comforts.</p></div><div class='footer-section'><h3>Quick Links</h3><p><a href='#about'>About Us</a></p><p><a href='#rooms'>Rooms</a></p><p><a href='#amenities'>Amenities</a></p><p><a href='/search/label/Blog'>Blog</a></p></div><div class='footer-section'><h3>Contact</h3><p><i class='fas fa-phone'/> +91 70065 08551</p><p><i class='fas fa-map-marker-alt'/> Iqbal Colony Road, Tangmarg</p></div></div><div class='social-links'><a href='#' title='Facebook'><i class='fab fa-facebook-f'/></a><a href='#' title='Instagram'><i class='fab fa-instagram'/></a><a href='#' title='WhatsApp'><i class='fab fa-whatsapp'/></a><a href='tel:+917006508551' title='Call'><i class='fas fa-phone'/></a></div><div class='footer-bottom'><p>&copy; 2024 Conifer View Guest House. All rights reserved.</p></div></div></footer>
-        <button class='back-to-top' id='backToTop'><i class='fas fa-arrow-up'/></button>
-        <div style='display: none;'><b:section class='sidebar' id='sidebar' showaddelement='yes'/></div>
+        <!-- Footer -->
+        <footer class='footer' id='footer'>
+            <div class='container'>
+                <div style='text-align: center; padding: 2rem 0;'>
+                    <h3 style='font-family: var(--font-heading); margin-bottom: 1rem; color: var(--white);'>Conifer View Guest House</h3>
+                    <p style='margin-bottom: 1.5rem; opacity: 0.9;'>Your gateway to the beauty of Kashmir</p>
+                    <div style='display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap;'>
+                        <a href='tel:+917006508551' style='color: var(--white); opacity: 0.8; transition: var(--transition);'>
+                            <i class='fas fa-phone'></i> +91-70065-08551
+                        </a>
+                        <a href='https://wa.me/917006508551' style='color: var(--white); opacity: 0.8; transition: var(--transition);'>
+                            <i class='fab fa-whatsapp'></i> WhatsApp
+                        </a>
+                        <span style='color: var(--white); opacity: 0.8;'>
+                            <i class='fas fa-map-marker-alt'></i> Tangmarg, Kashmir
+                        </span>
+                    </div>
+                    <div style='border-top: 1px solid rgba(255,255,255,0.2); padding-top: 2rem; opacity: 0.7; font-size: 0.9rem;'>
+                        <p>(c) <span id='current-year'>2024</span> Conifer View Guest House. All rights reserved.</p>
+                        <p style='margin-top: 0.5rem;'>Made with ❤️ for Kashmir tourism</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Back to Top Button -->
+        <button class='back-to-top' id='backToTop' aria-label='Back to top'>
+            <i class='fas fa-arrow-up'></i>
+        </button>
+
+        <!-- Hidden Sidebar for Blogger Admin -->
+        <div style='display: none;'>
+            <b:section class='sidebar' id='sidebar' maxwidgets='' showaddelement='yes'/>
+        </div>
     </div>
 
+    <!-- JavaScript -->
     <script>
     //<![CDATA[
     document.addEventListener('DOMContentLoaded', function() {
-        // Mobile menu toggle
-        const mobileMenu = document.querySelector('.mobile-menu');
-        const navLinks = document.querySelector('.nav-links');
+        // Mobile Menu Toggle
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navLinks = document.getElementById('navLinks');
+        
         if (mobileMenu && navLinks) {
             mobileMenu.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
                 mobileMenu.classList.toggle('active');
+                navLinks.classList.toggle('active');
             });
-            navLinks.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
+
+            // Close mobile menu when clicking on links
+            navLinks.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
                     mobileMenu.classList.remove('active');
+                    navLinks.classList.remove('active');
+                }
+            });
+        }
+
+        // Search Toggle
+        window.toggleSearch = function() {
+            const searchContainer = document.getElementById('searchContainer');
+            if (searchContainer) {
+                const isVisible = searchContainer.style.display !== 'none';
+                searchContainer.style.display = isVisible ? 'none' : 'block';
+                if (!isVisible) {
+                    const searchInput = searchContainer.querySelector('input[name="q"]');
+                    if (searchInput) {
+                        setTimeout(() => searchInput.focus(), 100);
+                    }
+                }
+            }
+        };
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+        if (backToTop) {
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+
+            backToTop.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
                 });
             });
         }
 
-        // Header scroll effect
-        const header = document.querySelector('.header');
-        if(header) {
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    header.style.background = 'rgba(255, 255, 255, 0.98)';
-                    header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.15)';
-                } else {
-                    header.style.background = 'rgba(255, 255, 255, 0.95)';
-                    header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
-                }
-            }, { passive: true });
-        }
-
-        // Back to top button
-        const backToTopBtn = document.getElementById('backToTop');
-        if (backToTopBtn) {
-            window.addEventListener('scroll', function() {
-                backToTopBtn.classList.toggle('show', window.scrollY > 300);
-            }, { passive: true });
-            backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-        }
-
-        // FAQ accordion
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', function() {
-                const answer = this.nextElementSibling;
-                const parent = this.parentElement;
-                const isActive = parent.classList.contains('active');
-
-                document.querySelectorAll('.faq-item').forEach(item => {
-                    if (item !== parent) {
-                        item.classList.remove('active');
-                        item.querySelector('.faq-answer').style.display = 'none';
-                        item.querySelector('.faq-answer').style.opacity = '0';
-                    }
-                });
-
-                if (!isActive) {
-                    parent.classList.add('active');
-                    answer.style.display = 'block';
-                    setTimeout(() => answer.style.opacity = '1', 10);
-                } else {
-                    parent.classList.remove('active');
-                    answer.style.opacity = '0';
-                    setTimeout(() => answer.style.display = 'none', 300);
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
             });
         });
-        
-        // Intersection Observer for animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                    observer.unobserve(entry.target);
+
+        // Set current year in footer
+        const currentYearElement = document.getElementById('current-year');
+        if (currentYearElement) {
+            currentYearElement.textContent = new Date().getFullYear();
+        }
+
+        // Add loading states to forms
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function() {
+                const submitButton = form.querySelector('button[type="submit"]');
+                if (submitButton) {
+                    submitButton.classList.add('loading');
+                    submitButton.disabled = true;
+                    const originalText = submitButton.innerHTML;
+                    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching...';
+                    
+                    // Reset after 3 seconds if form hasn't navigated away
+                    setTimeout(() => {
+                        submitButton.classList.remove('loading');
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = originalText;
+                    }, 3000);
                 }
             });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        });
 
-        document.querySelectorAll('section, .post-card, .amenity-card, .review-card, .stat-item').forEach(el => observer.observe(el));
+        // Enhanced image loading with error handling
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('error', function() {
+                this.style.display = 'none';
+                const parent = this.parentElement;
+                if (parent && parent.classList.contains('post-card-image')) {
+                    parent.innerHTML = '<i class="fas fa-image"></i>';
+                }
+            });
+        });
+
+        // Add subtle animations on scroll (Intersection Observer)
+        if ('IntersectionObserver' in window) {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Animate elements on scroll
+            document.querySelectorAll('.post-card, .amenity-card, .room-card, .stat-item').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        }
+
+        // Handle external links
+        document.querySelectorAll('a[href^="http"]').forEach(link => {
+            if (!link.href.includes(window.location.hostname)) {
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer');
+            }
+        });
+
+        // Performance optimization: Lazy load images
+        if ('loading' in HTMLImageElement.prototype) {
+            document.querySelectorAll('img').forEach(img => {
+                img.loading = 'lazy';
+            });
+        }
+
+        console.log('✅ Conifer View Guest House template loaded successfully!');
     });
+
+    // Error handling for JavaScript errors
+    window.addEventListener('error', function(e) {
+        console.warn('JS Error caught:', e.message);
+    });
+
+    // Service Worker registration for better performance (optional)
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            // Service worker would be implemented here for caching
+            // This is just a placeholder for future implementation
+        });
+    }
     //]]>
     </script>
 </body>
