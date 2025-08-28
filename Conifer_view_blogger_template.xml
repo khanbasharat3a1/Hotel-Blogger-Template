@@ -176,8 +176,8 @@
                 &quot;availableLanguage&quot;: [&quot;English&quot;, &quot;Hindi&quot;, &quot;Urdu&quot;, &quot;Kashmiri&quot;]
             },
             &quot;sameAs&quot;: [
-                &quot;https://www.booking.com/&quot;,
-                &quot;https://www.makemytrip.com/&quot;
+                &quot;https://www.booking.com/hotel/in/conifer-view-guest-house-baramulla2.html&quot;,
+                &quot;https://www.makemytrip.com/hotels/conifer_view_guest_house-details-gulmarg.html&quot;
             ]
         }
         </script>
@@ -299,14 +299,8 @@ a:hover {
 
 /* FIXED NAVIGATION - Better alignment and mobile fix */
 .header {
-    position: sticky;
+    position: absolute;
     top: 0;
-    background: linear-gradient(135deg, 
-        rgba(75, 108, 142, 0.95) 0%,
-        rgba(99, 133, 167, 0.9) 30%,
-        rgba(159, 140, 154, 0.85) 70%,
-        rgba(178, 154, 138, 0.95) 100%
-    );
     backdrop-filter: blur(15px);
     box-shadow: 0 2px 20px rgba(0,0,0,0.1);
     z-index: 1000;
@@ -314,15 +308,17 @@ a:hover {
     height: var(--header-height);
     display: flex;
     align-items: center;
+	width: 100%;
 }
 
 .nav {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     width: 100%;
     height: 100%;
     padding: 1rem 0;
+	
 }
 
 .logo h1 {
@@ -457,28 +453,27 @@ a:hover {
 
 .btn-secondary {
     background: transparent;
-    color: var(--white);
-    border: 2px solid var(--white);
+    color: #2c5530;
+    border: 2px solid #2c5530;
 }
 
 .btn-secondary:hover {
-    background: var(--white);
-    color: var(--primary-color);
+    background: #2c5530;
+    color: white;
     transform: translateY(-3px);
     box-shadow: var(--shadow);
 }
 
 .btn-accent {
-    background: linear-gradient(135deg, var(--accent-color), #e6c555);
-    color: var(--text-color);
-    border: 2px solid var(--accent-color);
+    background: #25D366;
+    color: white;
 }
 
 .btn-accent:hover {
-    background: linear-gradient(135deg, #e6c555, var(--accent-color));
+    background: white;
     transform: translateY(-3px);
     box-shadow: var(--shadow-hover);
-    color: var(--text-color);
+    color: #25D366;
 }
 
 /* ENHANCED HERO SECTION - Fixed text colors and button visibility */
@@ -551,17 +546,13 @@ a:hover {
 
 /* FIXED: Make CTA buttons clearly visible */
 .hero .cta-buttons a {
-    background-color: rgba(137, 101, 67, 0.95) !important;
-    color: #ffffff !important;
-    padding: 1rem 2rem;
-    border-radius: 30px;
-    border: 2px solid rgba(137, 101, 67, 0.95);
-    transition: all 0.3s ease;
-    font-weight: 600;
+        padding: 1rem 2rem;
     font-size: 1.1rem;
-    text-shadow: none;
-    z-index: 10;
-    position: relative;
+    border-radius: var(--border-radius);
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
 }
 
 .hero .cta-buttons a:hover {
@@ -602,7 +593,7 @@ a:hover {
 .stat-icon {
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    background: darkslategrey;
     color: var(--white);
     border-radius: 50%;
     display: flex;
@@ -742,7 +733,7 @@ a:hover {
 .amenity-icon {
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: #2c5530;
     color: var(--white);
     border-radius: 50%;
     display: flex;
@@ -902,77 +893,64 @@ a:hover {
 
 /* ENHANCED FAQ SECTION - Better styling and larger fonts */
 .faq-container {
-    max-width: 800px;
-    margin: 0 auto;
+max-width: 800px;
+margin: 0 auto;
 }
-
 .faq-item {
-    background: #f9f9f9;
-    border-radius: 15px;
-    box-shadow: var(--shadow-light);
-    margin-bottom: 1.5rem;
-    overflow: hidden;
-    transition: var(--transition);
+background: #f9f9f9;
+border-radius: 15px;
+box-shadow: var(--shadow-light);
+margin-bottom: 1.5rem;
+overflow: hidden;
+transition: var(--transition);
 }
-
 .faq-item:hover {
-    box-shadow: var(--shadow);
+box-shadow: var(--shadow);
 }
-
 .faq-question {
-    background: none;
-    border: none;
-    width: 100%;
-    padding: 1.5rem 2rem;
-    text-align: left;
-    cursor: pointer;
-    font-size: 1.2rem !important;
-    font-weight: 700;
-    color: var(--primary-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: var(--transition);
-}
-
-.faq-question:hover {
-    background: var(--primary-color);
-    color: var(--white);
+background: none;
+border: none;
+width: 100%;
+padding: 1.5rem 2rem;
+text-align: left;
+cursor: pointer;
+font-size: 1.2rem !important;
+font-weight: 700;
+color: var(--primary-color);
+display: flex;
+justify-content: space-between;
+align-items: center;
+transition: var(--transition);
 }
 
 .faq-question:focus {
-    outline: 2px solid var(--accent-color);
-    outline-offset: 2px;
+outline: 2px solid var(--accent-color);
+outline-offset: 2px;
 }
-
 .faq-answer {
-    padding: 0 2rem;
-    max-height: 0;
-    overflow: hidden;
-    transition: var(--transition);
-    background: var(--white);
+padding: 0 2rem;
+max-height: 0;
+overflow: hidden;
+transition: var(--transition);
+background: var(--white);
 }
-
 .faq-item.active .faq-answer {
-    padding: 1.5rem 2rem 2rem;
-    max-height: 300px;
+padding: 1.5rem 2rem 2rem;
+max-height: 300px;
 }
-
 .faq-answer p {
-    font-size: 1.05rem !important;
-    line-height: 1.6;
-    color: var(--text-color);
-    margin: 0;
+font-size: 1.05rem !important;
+line-height: 1.6;
+color: var(--text-color);
+margin: 0;
 }
-
 .faq-icon {
-    transition: var(--transition);
-    font-size: 1.2rem;
+transition: var(--transition);
+font-size: 1.2rem;
 }
-
 .faq-item.active .faq-icon {
-    transform: rotate(180deg);
-}
+transform: rotate(180deg);
+} 
 
 /* FIXED LATEST UPDATES SECTION - Better card alignment and styling */
 .posts-grid {
@@ -1124,7 +1102,7 @@ a:hover {
 }
 
 .contact-info h3 i {
-    color: var(--accent-color);
+    color: darkkhaki;
     font-size: 1.5rem;
 }
 
@@ -1147,7 +1125,7 @@ a:hover {
 .contact-detail-icon {
     width: 45px;
     height: 45px;
-    background: linear-gradient(135deg, var(--accent-color), #e6c555);
+    background: darkkhaki;
     color: var(--white);
     border-radius: 10px;
     display: flex;
@@ -1212,7 +1190,7 @@ a:hover {
 }
 
 .booking-info h3 i {
-    color: var(--accent-color);
+    color: darkkhaki;
     font-size: 1.5rem;
 }
 
@@ -1289,7 +1267,7 @@ a:hover {
 
 /* Enhanced Winter Notice */
 .winter-notice {
-    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    background: linear-gradient(135deg, #f0f8ff, #e6f3ff);
     padding: 2rem;
     margin: 2rem 0;
     border-radius: var(--border-radius);
@@ -1348,6 +1326,7 @@ a:hover {
     display: flex;
     gap: 1rem;
     margin-top: 1rem;
+	display:none;
 }
 
 .social-links a {
@@ -1383,7 +1362,7 @@ a:hover {
     right: 30px;
     width: 55px;
     height: 55px;
-    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    background: darkslategray;
     color: var(--white);
     border: none;
     border-radius: 50%;
@@ -1460,6 +1439,7 @@ a:hover {
     .mobile-menu {
         display: flex;
 		background: transparent;
+		border: none;
     }
     
     .mobile-menu.active span:nth-child(1) {
@@ -1675,10 +1655,9 @@ a:hover {
     width: 100%;
     display: flex;
     flex-direction: row;
-    align-content: stretch;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
+    justify-content: space-around;
+    align-items: stretch;
 }
 
 #latest-posts {
@@ -1689,6 +1668,93 @@ a:hover {
 .search-container {
 	display:none;
 }
+
+
+
+
+/* Reviews Section */
+.reviews {
+    padding: 6rem 0;
+    background: var(--bg-light);
+}
+
+.reviews h2 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 3rem;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.review-card {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.review-rating {
+    color: var(--accent-color);
+}
+
+.review-platform {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: white;
+        background-color: var(--bg-light);
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+}
+
+
+
+.review-text {
+    font-style: italic;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+}
+
+.reviewer-name {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+
+
+/* Homepage (transparent) */
+.header-index {
+  background: transparent;
+}
+
+/* All other pages (black, or whatever color you want) */
+.header-item,
+.header-static_page,
+.header-archive,
+.header-error_page {
+  background: #444; /* or #fff / gradient / image */
+}
+
+
+
 
     ]]></b:skin>
 
@@ -1714,7 +1780,7 @@ a:hover {
         <a class='skip-link' href='#main-content' style='position: absolute; left: -9999px; z-index: 999999; padding: 8px 16px; background: var(--primary-color); color: white; text-decoration: none;'>Skip to content</a>
         
         <!-- Header -->
-        <header class='header' id='header' role='banner'>
+        <header expr:class='&quot;header header-&quot; + data:blog.pageType' id='header' role='banner'>
             <nav aria-label='Main navigation' class='nav container' role='navigation'>
                 <a aria-label='Conifer View Guest House - Home' class='logo' href='/'>
                     <h1>Conifer View Guest House</h1>
@@ -1727,7 +1793,7 @@ a:hover {
                     <li><a href='/#amenities'>Amenities</a></li>
                     <li><a href='/#location'>Location</a></li>
                     <li><a href='/#contact'>Contact</a></li>
-                    <li><a href='/search/label/Blog'>Blog</a></li>
+                    <li><a href='/search?max-results=50'>Blog</a></li>
                     <li>
                     </li>
                 </ul>
@@ -1754,6 +1820,8 @@ a:hover {
                 </div>
             </div>
         </header>
+      
+      
 
         <!-- Main Content -->
         <main id='content-wrapper' role='main'>
@@ -1790,8 +1858,8 @@ a:hover {
                                 <div class='stats-grid'>
                                     <div class='stat-item'>
                                         <div class='stat-icon'><i class='fas fa-mountain'/></div>
-                                        <h3 class='stat-title'>11-14 km to Gulmarg</h3>
-                                        <p class='stat-description'>30-40 minutes drive to gondola &amp; skiing</p>
+                                        <h3 class='stat-title'>14 km to Gulmarg</h3>
+                                        <p class='stat-description'>30 minutes drive to gondola &amp; skiing</p>
                                     </div>
                                     <div class='stat-item'>
                                         <div class='stat-icon'><i class='fas fa-star'/></div>
@@ -1820,7 +1888,7 @@ a:hover {
                                         <h2>Welcome to Conifer View</h2>
                                         <p>Conifer View Guest House is a cozy mountain homestay in Tangmarg &#8212; the peaceful gateway to Gulmarg. Set on Iqbal Colony Road, the house offers warm Kashmiri hospitality, clean rooms, and views of pine-clad slopes.</p>
                                         <p>It&#39;s a practical base for gondola rides, skiing in winter, and day trips to Drung Waterfall and Ningle Nallah. Our family-run guest house provides a &quot;feel at home while away from home&quot; experience with traditional Kashmiri warmth.</p>
-                                        <p><strong>Hosted by Mohammad Imran Khan since 2023</strong>, we ensure every guest receives personalized attention and assistance with local arrangements, making your Kashmir journey unforgettable.</p>
+                                        <p>We ensure every guest receives personalized attention and assistance with local arrangements, making your Kashmir journey unforgettable.</p>
                                         <div class='cta-buttons'>
                                             <a class='btn btn-primary' href='#rooms'>View Rooms</a>
                                             <a class='btn btn-secondary' href='#location'>See Location</a>
@@ -1849,7 +1917,7 @@ a:hover {
                                     <div class='amenity-card'>
                                         <div class='amenity-icon'><i class='fas fa-utensils'/></div>
                                         <h3>In-Room Breakfast</h3>
-                                        <p>Vegetarian, Halal &amp; Kosher options available - authentic Kashmiri breakfast served fresh</p>
+                                        <p>Vegetarian &amp; Halal options available - authentic Kashmiri breakfast served fresh</p>
                                     </div>
                                     <div class='amenity-card'>
                                         <div class='amenity-icon'><i class='fas fa-leaf'/></div>
@@ -1885,7 +1953,7 @@ a:hover {
                                 <div class='rooms-grid'>
                                     <div class='room-card'>
                                         <div class='room-card-image'>
-                                            <i class='fas fa-bed'/>
+                                            <img alt='Double Room' loading='lazy' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0__cRDWLERYZhcNeW5VVNaS8QEzVTxilkRzLN-Zac_6aRKSFZFDwvKfIjRYtVXDWQC_bsgiK5PhD9wMq4Vhk1jnwr5MhfrG3flJyyCPfHDpcIjbTdCjTWK7UFp6I2-gFzU0XSOSzO3VqAKgnrZtZogbKDvqOt09R-alnpyY-baVsPGBTxwIPZMONsmZQ/s320-rw/IMG-20231213-WA0075.jpg'/>
                                         </div>
                                         <div class='room-card-content'>
                                             <h3 class='room-card-title'>Double Room</h3>
@@ -1900,7 +1968,7 @@ a:hover {
                                     </div>
                                     <div class='room-card'>
                                         <div class='room-card-image'>
-                                            <i class='fas fa-bed'/>
+                                            <img alt='Double Room' loading='lazy' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjgPeuQK4wCu74Rwmx-duKB8eopkhCJnkE3OtijvxcnKqEzdmMSqUKwNUMEXVVJyQ4dAO86ckQlQD-lX-GKjK19H0y-xzRF8V-w_XEaAHV5tMIAcUz1BiOoNAtwo8dtc_Pg7YIizOduyaMJIZNevBL7XJI7rkpE7_fmTE5eb8W2zU4kylVypI0fIUawIXE/s320-rw/IMG-20231213-WA0085.jpg'/>
                                         </div>
                                         <div class='room-card-content'>
                                             <h3 class='room-card-title'>Twin/Double Room</h3>
@@ -1915,7 +1983,7 @@ a:hover {
                                     </div>
                                     <div class='room-card'>
                                         <div class='room-card-image'>
-                                            <i class='fas fa-users'/>
+                                            <img alt='Double Room' loading='lazy' src='https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgL2QSGz9-jy2eeaW9JgISm-LOGYI80_V9IRKwb4DdB6hPoWCUb1Bc65aY-GiduhZA-dCYn9vnv_ApAUj4g52iAndsZpO-1ee4Fu3jwyfh1e_UOSuNPO5hzHlxgiFfJnCDXSeoGEeiM4quUx_qXWYuIA130rv0XZMqSAmXyyykmwiktzncfm6BLcIbxmqM/s6000/pexels-pixabay-164595.jpg'/>
                                         </div>
                                         <div class='room-card-content'>
                                             <h3 class='room-card-title'>Family Room</h3>
@@ -1951,7 +2019,7 @@ a:hover {
                                         </div>
                                         <div class='location-info'>
                                             <h4>Gulmarg Gondola</h4>
-                                            <p class='location-distance'>11-14 km</p>
+                                            <p class='location-distance'>14 km</p>
                                         </div>
                                     </div>
                                     <div class='location-item'>
@@ -1960,7 +2028,7 @@ a:hover {
                                         </div>
                                         <div class='location-info'>
                                             <h4>Srinagar Airport</h4>
-                                            <p class='location-distance'>55 km</p>
+                                            <p class='location-distance'>40 km</p>
                                         </div>
                                     </div>
                                     <div class='location-item'>
@@ -1969,7 +2037,7 @@ a:hover {
                                         </div>
                                         <div class='location-info'>
                                             <h4>Srinagar City</h4>
-                                            <p class='location-distance'>39-56 km</p>
+                                            <p class='location-distance'>37 km</p>
                                         </div>
                                     </div>
                                     <div class='location-item'>
@@ -1978,7 +2046,7 @@ a:hover {
                                         </div>
                                         <div class='location-info'>
                                             <h4>Hazratbal Mosque</h4>
-                                            <p class='location-distance'>43 km</p>
+                                            <p class='location-distance'>42 km</p>
                                         </div>
                                     </div>
                                     <div class='location-item'>
@@ -1987,7 +2055,7 @@ a:hover {
                                         </div>
                                         <div class='location-info'>
                                             <h4>Shankaracharya Temple</h4>
-                                            <p class='location-distance'>47 km</p>
+                                            <p class='location-distance'>4 km</p>
                                         </div>
                                     </div>
                                     <div class='location-item'>
@@ -2142,12 +2210,17 @@ a:hover {
                                                     <b:loop values='data:posts take 3' var='post'>
                                                         <article class='post-card'>
                                                             <a class='post-card-image' expr:href='data:post.url'>
-                                                                <b:if cond='data:post.featuredImage'>
-                                                                    <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 600, &quot;16:9&quot;)' loading='lazy'/>
+                                                              <b:if cond='data:post.featuredImage'>
+                                                                <img expr:alt='data:post.title' expr:src='data:post.featuredImage' loading='lazy'/>
+                                                              <b:else/>
+                                                                <b:if cond='data:post.thumbnailUrl'>
+                                                                  <img expr:alt='data:post.title' expr:src='data:post.thumbnailUrl' loading='lazy'/>
                                                                 <b:else/>
-                                                                    <i class='fas fa-image'/>
+                                                                  <i class='fas fa-image'/>
                                                                 </b:if>
+                                                              </b:if>
                                                             </a>
+
                                                             <div class='post-card-content'>
                                                                 <h3 class='post-card-title'>
                                                                     <a expr:href='data:post.url'><data:post.title/></a>
@@ -2174,8 +2247,8 @@ a:hover {
                                                         <p>Check back soon for Kashmir travel tips, local insights, and guest house updates!</p>
                                                     </div>
                                                 </b:if>
-                                                <div style='grid-column: 1 / -1; text-align: center; margin-top: var(--space-2xl);'>
-                                                    <a class='btn btn-secondary' href='/search/label/Blog'>
+                                                <div style='grid-column: 1 / -1; text-align: center; margin-top: 20px; '>
+                                                    <a class='btn btn-secondary' href='/search?max-results=50'>
                                                         <i class='fas fa-blog'/> View All Posts
                                                     </a>
                                                 </div>
@@ -3028,10 +3101,10 @@ a:hover {
                     <h4>Book Direct</h4>
                     <p>Get the best rates by booking directly with us. We also accept bookings through:</p>
                     <div class='platform-links'>
-                        <a href='https://www.booking.com/' rel='noopener' target='_blank'>
+                        <a href='https://www.booking.com/hotel/in/conifer-view-guest-house-baramulla2.html' rel='noopener' target='_blank'>
                             <i class='fas fa-external-link-alt'/> Booking.com
                         </a>
-                        <a href='https://www.makemytrip.com/' rel='noopener' target='_blank'>
+                        <a href='https://www.makemytrip.com/hotels/conifer_view_guest_house-details-gulmarg.html' rel='noopener' target='_blank'>
                             <i class='fas fa-external-link-alt'/> MakeMyTrip
                         </a>
                     </div>
@@ -3959,7 +4032,7 @@ a:hover {
                             <li><a href='/#rooms'><i class='fas fa-bed'/> Rooms</a></li>
                             <li><a href='/#amenities'><i class='fas fa-star'/> Amenities</a></li>
                             <li><a href='/#location'><i class='fas fa-map-marker-alt'/> Location</a></li>
-                            <li><a href='/search/label/Blog'><i class='fas fa-blog'/> Blog</a></li>
+                            <li><a href='/search?max-results=50'><i class='fas fa-blog'/> Blog</a></li>
                             <li><a href='/#faq'><i class='fas fa-question-circle'/> FAQ</a></li>
                         </ul>
                     </div>
@@ -3983,8 +4056,8 @@ a:hover {
                         <h3>Book With Us</h3>
                         <p style='margin-bottom: var(--space-lg);'>Get the best rates by booking directly. Available on major platforms:</p>
                         <ul class='footer-links'>
-                            <li><a href='https://www.booking.com/' rel='noopener' target='_blank'><i class='fas fa-external-link-alt'/> Booking.com</a></li>
-                            <li><a href='https://www.makemytrip.com/' rel='noopener' target='_blank'><i class='fas fa-external-link-alt'/> MakeMyTrip</a></li>
+                            <li><a href='https://www.booking.com/hotel/in/conifer-view-guest-house-baramulla2.html' rel='noopener' target='_blank'><i class='fas fa-external-link-alt'/> Booking.com</a></li>
+                            <li><a href='https://www.makemytrip.com/hotels/conifer_view_guest_house-details-gulmarg.html' rel='noopener' target='_blank'><i class='fas fa-external-link-alt'/> MakeMyTrip</a></li>
                             <li><a href='#contact'><i class='fas fa-phone'/> Direct Booking</a></li>
                         </ul>
                     </div>
@@ -3992,10 +4065,13 @@ a:hover {
                 
                 <div class='footer-bottom'>
                     <div style='margin-bottom: var(--space-md);'>
-                        <p>(c) <span id='current-year'>2024</span> Conifer View Guest House. All rights reserved.</p>
+                        <p>&#169; <span id='current-year'>2024</span> Conifer View Guest House. All rights reserved.</p>
                         <p style='margin-top: var(--space-xs);'>Book direct for best rates | Iqbal Colony Road, Tangmarg, Baramulla, J&amp;K 193402</p>
                     </div>
-                    <p style='font-size: 0.85rem; opacity: 0.8;'>Made with &#10084;&#65039; for Kashmir tourism | <a href='/' style='color: var(--accent-color);'>Powered by Blogger</a></p>
+                    <div bis_skin_checked='1' style='text-align: center; margin-top: 30px; color: #999; padding-bottom: 20px; margin-bottom: 30px;'>
+                      <p>Designed by <a bis_skin_checked='1' href='https://techinsiderplus.com/' style='color: #2E7D32;'>Tech Insider Plus</a> and managed by <a bis_skin_checked='1' href='https://khanbasharat.com/' style='color: #FF9800;'>Khan Basharat</a>.</p>
+
+                      </div>
                 </div>
             </div>
         </footer>
