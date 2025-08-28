@@ -1,0 +1,1 @@
+Vibe coding a BLogger Template for Hotels
