@@ -169,18 +169,18 @@
             ],
             "address": {
                 "@type": "PostalAddress",
-                "streetAddress": "Iqbal Colony Road, Tangmarg",
-                "addressLocality": "Baramulla",
-                "addressRegion": "Jammu and Kashmir",
-                "postalCode": "193402",
-                "addressCountry": "IN"
+                "streetAddress": "<b:eval expr='data:skin.vars.address_street'/>",
+                "addressLocality": "<b:eval expr='data:skin.vars.address_locality'/>",
+                "addressRegion": "<b:eval expr='data:skin.vars.address_region'/>",
+                "postalCode": "<b:eval expr='data:skin.vars.address_postalCode'/>",
+                "addressCountry": "<b:eval expr='data:skin.vars.address_country'/>"
             },
             "geo": {
                 "@type": "GeoCoordinates",
                 "latitude": "34.0837",
                 "longitude": "74.3975"
             },
-            "telephone": "+91-70065-08551",
+            "telephone": "<b:eval expr='data:skin.vars.phone_number'/>",
             "priceRange": "₹₹",
             "checkinTime": "13:00",
             "checkoutTime": "11:00",
@@ -207,8 +207,8 @@
                 }
             },
             "sameAs": [
-                "https://www.booking.com/hotel/in/conifer-view-guest-house-baramulla2.html",
-                "https://www.makemytrip.com/hotels/conifer_view_guest_house-details-gulmarg.html"
+                "<b:eval expr='data:skin.vars.bookingcom_url'/>",
+                "<b:eval expr='data:skin.vars.makemytrip_url'/>"
             ]
         }
         </script>
@@ -233,18 +233,18 @@
                 },
                 "contactPoint": {
                     "@type": "ContactPoint",
-                    "telephone": "+91-70065-08551",
+                    "telephone": "<b:eval expr='data:skin.vars.phone_number'/>",
                     "contactType": "customer service",
                     "availableLanguage": ["English", "Hindi", "Urdu", "Kashmiri"],
-                    "areaServed": "IN"
+                    "areaServed": "<b:eval expr='data:skin.vars.address_country'/>"
                 },
                 "address": {
                     "@type": "PostalAddress",
-                    "streetAddress": "Iqbal Colony Road, Tangmarg",
-                    "addressLocality": "Baramulla",
-                    "addressRegion": "Jammu and Kashmir",
-                    "postalCode": "193402",
-                    "addressCountry": "IN"
+                    "streetAddress": "<b:eval expr='data:skin.vars.address_street'/>",
+                    "addressLocality": "<b:eval expr='data:skin.vars.address_locality'/>",
+                    "addressRegion": "<b:eval expr='data:skin.vars.address_region'/>",
+                    "postalCode": "<b:eval expr='data:skin.vars.address_postalCode'/>",
+                    "addressCountry": "<b:eval expr='data:skin.vars.address_country'/>"
                 }
             },
             "potentialAction": {
@@ -302,7 +302,7 @@
         </script>
     </b:if>
 
-    <b:if cond='data:view.isPost and data:post.labels'>
+    <b:if cond='data:view.isPost'>
         <script type='application/ld+json'>
         {
             "@context": "https://schema.org",
@@ -312,21 +312,48 @@
                     "@type": "ListItem",
                     "position": 1,
                     "name": "Home",
-                    "item": "<data:blog.canonicalUrl/>"
-                },
-                <b:loop values='data:post.labels' var='label'>
-                {
-                    "@type": "ListItem", 
-                    "position": <b:eval expr='data:label.index + 2'/>,
-                    "name": "<data:label.name/>",
-                    "item": "<data:label.url/>"
-                }<b:if cond='not data:label.isLast'>,</b:if>
-                </b:loop>,
+                    "item": "<data:blog.homepageUrl/>"
+                }
+                <b:if cond='data:post.labels'>
+                ,
+                <b:loop values='data:post.labels' var='label' take='1'>
                 {
                     "@type": "ListItem",
-                    "position": <b:eval expr='data:post.labels.size + 2'/>,
+                    "position": 2,
+                    "name": "<data:label.name/>",
+                    "item": "<data:label.url/>"
+                }
+                </b:loop>
+                </b:if>
+                ,
+                {
+                    "@type": "ListItem",
+                    "position": <b:eval expr='data:post.labels.size > 0 ? 3 : 2'/>,
                     "name": "<data:post.title/>",
                     "item": "<data:post.canonicalUrl/>"
+                }
+            ]
+        }
+        </script>
+    </b:if>
+
+    <b:if cond='data:view.isPage or data:view.isArchive or data:view.isLabelSearch'>
+        <script type='application/ld+json'>
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "<data:blog.homepageUrl/>"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "<data:blog.pageName/>",
+                    "item": "<data:blog.url/>"
                 }
             ]
         }
@@ -350,6 +377,29 @@
 
 
     <b:skin><![CDATA[
+/*
+<Group description="Theme Colors">
+  <Variable name="keycolor" description="Main Theme Color" type="color" default="#2c5530" value="#2c5530"/>
+</Group>
+<Group description="Contact and Social Links">
+  <Variable name="phone.number" description="Contact Phone Number (e.g., +917006508551)" type="string" default="+917006508551" value="+917006508551"/>
+  <Variable name="whatsapp.number" description="WhatsApp Number (with country code, no +)" type="string" default="917006508551" value="917006508551"/>
+  <Variable name="host.name" description="Host Name" type="string" default="Mohammad Imran Khan" value="Mohammad Imran Khan"/>
+  <Variable name="facebook.url" description="Facebook Profile URL" type="string" default="https://facebook.com/coniferview" value="https://facebook.com/coniferview"/>
+  <Variable name="instagram.url" description="Instagram Profile URL" type="string" default="https://instagram.com/coniferview" value="https://instagram.com/coniferview"/>
+</Group>
+<Group description="External Booking Links">
+  <Variable name="bookingcom.url" description="Booking.com URL" type="string" default="https://www.booking.com/hotel/in/conifer-view-guest-house-baramulla2.html" value="https://www.booking.com/hotel/in/conifer-view-guest-house-baramulla2.html"/>
+  <Variable name="makemytrip.url" description="MakeMyTrip URL" type="string" default="https://www.makemytrip.com/hotels/conifer_view_guest_house-details-gulmarg.html" value="https://www.makemytrip.com/hotels/conifer_view_guest_house-details-gulmarg.html"/>
+</Group>
+<Group description="Business Address">
+  <Variable name="address.street" description="Street Address" type="string" default="Iqbal Colony Road, Tangmarg" value="Iqbal Colony Road, Tangmarg"/>
+  <Variable name="address.locality" description="City/Locality" type="string" default="Baramulla" value="Baramulla"/>
+  <Variable name="address.region" description="State/Region" type="string" default="Jammu and Kashmir" value="Jammu and Kashmir"/>
+  <Variable name="address.postalCode" description="Postal Code" type="string" default="193402" value="193402"/>
+  <Variable name="address.country" description="Country Code (e.g., IN)" type="string" default="IN" value="IN"/>
+</Group>
+*/
     /* Enhanced CSS Variables */
     /* Enhanced CSS Variables - Refined */
 :root {
@@ -641,7 +691,7 @@ a:hover {
     font-size: clamp(3rem, 6vw, 4rem);
     font-weight: 700;
     margin-bottom: 1rem;
-    color: #ffffff !important;
+    color: #ffffff;
     text-shadow: 0 0 10px rgba(0,0,0,0.8);
     opacity: 0;
     animation: fadeInUp 1s ease forwards;
@@ -650,7 +700,7 @@ a:hover {
 .hero-subtitle {
     font-size: clamp(1.25rem, 3vw, 1.5rem);
     margin-bottom: 1rem;
-    color: #ffffff !important;
+    color: #ffffff;
     text-shadow: 0 0 8px rgba(0,0,0,0.8);
     font-weight: 400;
     opacity: 0;
@@ -660,7 +710,7 @@ a:hover {
 .hero-location {
     font-size: clamp(1rem, 2vw, 1.1rem);
     margin-bottom: 3rem;
-    color: #ffffff !important;
+    color: #ffffff;
     text-shadow: 0 0 8px rgba(0,0,0,0.8);
     display: flex;
     align-items: center;
@@ -1050,7 +1100,7 @@ width: 100%;
 padding: 1.5rem 2rem;
 text-align: left;
 cursor: pointer;
-font-size: 1.2rem !important;
+font-size: 1.2rem;
 font-weight: 700;
 color: var(--primary-color);
 display: flex;
@@ -1075,7 +1125,7 @@ padding: 1.5rem 2rem 2rem;
 max-height: 300px;
 }
 .faq-answer p {
-font-size: 1.05rem !important;
+font-size: 1.05rem;
 line-height: 1.6;
 color: var(--text-color);
 margin: 0;
@@ -1462,7 +1512,6 @@ transform: rotate(180deg);
     display: flex;
     gap: 1rem;
     margin-top: 1rem;
-	display:none;
 }
 
 .social-links a {
@@ -2033,7 +2082,7 @@ header[class^="header-"]:not(.header-index) {
                                         <a class='btn btn-accent btn-lg' href='#contact'>
                                             <i class='fas fa-calendar-check'/> Book Now
                                         </a>
-                                        <a class='btn btn-secondary btn-lg' href='tel:+917006508551'>
+                                        <a class='btn btn-secondary btn-lg' expr:href='&quot;tel:&quot; + data:skin.vars.phone_number'>
                                             <i class='fas fa-phone'/> Call Us
                                         </a>
                                     </div>
@@ -3238,7 +3287,7 @@ header[class^="header-"]:not(.header-index) {
                     </div>
                     <div class='contact-detail-content'>
                         <h4>Phone</h4>
-                        <p><a href='tel:+917006508551'>+91 70065 08551</a></p>
+                        <p><a expr:href='&quot;tel:&quot; + data:skin.vars.phone_number'><b:eval expr='data:skin.vars.phone_number'/></a></p>
                     </div>
                 </div>
 
@@ -3248,7 +3297,7 @@ header[class^="header-"]:not(.header-index) {
                     </div>
                     <div class='contact-detail-content'>
                         <h4>Address</h4>
-                        <p>Iqbal Colony Road, Tangmarg<br/>Baramulla, J&amp;K 193402</p>
+                        <p><b:eval expr='data:skin.vars.address_street'/><br/><b:eval expr='data:skin.vars.address_locality'/>, <b:eval expr='data:skin.vars.address_region'/> <b:eval expr='data:skin.vars.address_postalCode'/></p>
                     </div>
                 </div>
 
@@ -3258,15 +3307,15 @@ header[class^="header-"]:not(.header-index) {
                     </div>
                     <div class='contact-detail-content'>
                         <h4>Host</h4>
-                        <p>Mohammad Imran Khan<br/><small>Response within 24 hours</small></p>
+                        <p><b:eval expr='data:skin.vars.host_name'/><br/><small>Response within 24 hours</small></p>
                     </div>
                 </div>
 
                 <div class='contact-buttons'>
-                    <a class='btn btn-primary' href='tel:+917006508551'>
+                    <a class='btn btn-primary' expr:href='&quot;tel:&quot; + data:skin.vars.phone_number'>
                         <i class='fas fa-phone'/> Call Now
                     </a>
-                    <a class='btn btn-accent' href='https://wa.me/917006508551'>
+                    <a class='btn btn-accent' expr:href='&quot;https://wa.me/&quot; + data:skin.vars.whatsapp_number'>
                         <i class='fab fa-whatsapp'/> WhatsApp
                     </a>
                 </div>
@@ -4203,16 +4252,16 @@ header[class^="header-"]:not(.header-index) {
                         <h3>Conifer View Guest House</h3>
                         <p style='margin-bottom: var(--space-lg);'>Your cozy mountain homestay in Tangmarg, gateway to Gulmarg. Experience authentic Kashmiri hospitality with modern comforts.</p>
                         <div class='social-links'>
-                            <a aria-label='Facebook' href='https://facebook.com/coniferview' rel='noopener' target='_blank'>
+                            <a aria-label='Facebook' expr:href='data:skin.vars.facebook_url' rel='noopener' target='_blank'>
                                 <i class='fab fa-facebook-f'/>
                             </a>
-                            <a aria-label='Instagram' href='https://instagram.com/coniferview' rel='noopener' target='_blank'>
+                            <a aria-label='Instagram' expr:href='data:skin.vars.instagram_url' rel='noopener' target='_blank'>
                                 <i class='fab fa-instagram'/>
                             </a>
-                            <a aria-label='WhatsApp' href='https://wa.me/917006508551' rel='noopener' target='_blank'>
+                            <a aria-label='WhatsApp' expr:href='&quot;https://wa.me/&quot; + data:skin.vars.whatsapp_number' rel='noopener' target='_blank'>
                                 <i class='fab fa-whatsapp'/>
                             </a>
-                            <a aria-label='Call us' href='tel:+917006508551'>
+                            <a aria-label='Call us' expr:href='&quot;tel:&quot; + data:skin.vars.phone_number'>
                                 <i class='fas fa-phone'/>
                             </a>
                         </div>
@@ -4233,14 +4282,14 @@ header[class^="header-"]:not(.header-index) {
                     <div class='footer-section'>
                         <h3>Contact</h3>
                         <ul class='footer-links'>
-                            <li><a href='tel:+917006508551'><i class='fas fa-phone'/> +91 70065 08551</a></li>
+                            <li><a expr:href='&quot;tel:&quot; + data:skin.vars.phone_number'><i class='fas fa-phone'/> <b:eval expr='data:skin.vars.phone_number'/></a></li>
                             <li style='display: flex; align-items: flex-start; gap: var(--space-sm); color: rgba(255, 255, 255, 0.9); margin-bottom: var(--space-sm);'>
                                 <i class='fas fa-map-marker-alt' style='margin-top: 0.2rem; color: var(--accent-color); width: 16px;'/>
-                                Iqbal Colony Road, Tangmarg<br/>Baramulla, J&amp;K 193402
+                                <span><b:eval expr='data:skin.vars.address_street'/><br/><b:eval expr='data:skin.vars.address_locality'/>, <b:eval expr='data:skin.vars.address_region'/> <b:eval expr='data:skin.vars.address_postalCode'/></span>
                             </li>
                             <li style='display: flex; align-items: center; gap: var(--space-sm); color: rgba(255, 255, 255, 0.9);'>
                                 <i class='fas fa-user-tie' style='color: var(--accent-color); width: 16px;'/>
-                                Mohammad Imran Khan
+                                <b:eval expr='data:skin.vars.host_name'/>
                             </li>
                         </ul>
                     </div>
@@ -4249,8 +4298,8 @@ header[class^="header-"]:not(.header-index) {
                         <h3>Book With Us</h3>
                         <p style='margin-bottom: var(--space-lg);'>Get the best rates by booking directly. Available on major platforms:</p>
                         <ul class='footer-links'>
-                            <li><a href='https://www.booking.com/hotel/in/conifer-view-guest-house-baramulla2.html' rel='noopener' target='_blank'><i class='fas fa-external-link-alt'/> Booking.com</a></li>
-                            <li><a href='https://www.makemytrip.com/hotels/conifer_view_guest_house-details-gulmarg.html' rel='noopener' target='_blank'><i class='fas fa-external-link-alt'/> MakeMyTrip</a></li>
+                            <li><a expr:href='data:skin.vars.bookingcom_url' rel='noopener' target='_blank'><i class='fas fa-external-link-alt'/> Booking.com</a></li>
+                            <li><a expr:href='data:skin.vars.makemytrip_url' rel='noopener' target='_blank'><i class='fas fa-external-link-alt'/> MakeMyTrip</a></li>
                             <li><a href='#contact'><i class='fas fa-phone'/> Direct Booking</a></li>
                         </ul>
                     </div>
@@ -4259,7 +4308,7 @@ header[class^="header-"]:not(.header-index) {
                 <div class='footer-bottom'>
                     <div style='margin-bottom: var(--space-md);'>
                         <p>&#169; <span id='current-year'>2024</span> Conifer View Guest House. All rights reserved.</p>
-                        <p style='margin-top: var(--space-xs);'>Book direct for best rates | Iqbal Colony Road, Tangmarg, Baramulla, J&amp;K 193402</p>
+                        <p style='margin-top: var(--space-xs);'>Book direct for best rates | <b:eval expr='data:skin.vars.address_street'/>, <b:eval expr='data:skin.vars.address_locality'/>, <b:eval expr='data:skin.vars.address_region'/> <b:eval expr='data:skin.vars.address_postalCode'/></p>
                     </div>
                     <div bis_skin_checked='1' style='text-align: center; margin-top: 30px; color: #999; padding-bottom: 20px; margin-bottom: 30px;'>
                       <p>Designed by <a bis_skin_checked='1' href='https://techinsiderplus.com/' style='color: #2E7D32;'>Tech Insider Plus</a> and managed by <a bis_skin_checked='1' href='https://khanbasharat.com/' style='color: #FF9800;'>Khan Basharat</a>.</p>
@@ -4293,7 +4342,6 @@ header[class^="header-"]:not(.header-index) {
         initializeAccessibility();
         initializePerformance();
         
-        console.log('✅ Conifer View Guest House template loaded successfully!');
     });
 
     // Navigation functionality
@@ -4321,7 +4369,8 @@ header[class^="header-"]:not(.header-index) {
 
             // Close mobile menu when clicking outside
             document.addEventListener('click', function(e) {
-                if (!mobileMenu.contains(e.target) && !navLinks.contains(e.target)) {
+                // Only run if the menu is currently active
+                if (navLinks.classList.contains('active') && !mobileMenu.contains(e.target) && !navLinks.contains(e.target)) {
                     mobileMenu.classList.remove('active');
                     navLinks.classList.remove('active');
                     document.body.style.overflow = '';
