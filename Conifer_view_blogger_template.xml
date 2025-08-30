@@ -2063,9 +2063,9 @@ header[class^="header-"]:not(.header-index) {
             <nav aria-label='Main navigation' class='nav container' role='navigation'>
                 <a aria-label='Conifer View Guest House - Home' class='logo' href='/'>
                   <b:if cond='data:view.isHomepage'>
-                    <h1>Conifer View Guest House</h1>
-                  <b:else/>
                     <p class='logo-text' style='font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; color: white; margin: 0; line-height: 1;'>Conifer View Guest House</p>
+                  <b:else/>
+                    <h1>Conifer View Guest House</h1>
                   </b:if>
                 </a>
                 
@@ -2081,7 +2081,7 @@ header[class^="header-"]:not(.header-index) {
                     </li>
                 </ul>
                 
-                <button aria-label='Toggle mobile menu' class='mobile-menu' id='mobileMenu' type='button'>
+                <button aria-label='Toggle mobile menu' class='mobile-menu' id='mobileMenu' type='button' aria-expanded='false'>
                     <span/>
                     <span/>
                     <span/>
@@ -2117,7 +2117,7 @@ header[class^="header-"]:not(.header-index) {
                         <section class='hero' id='home'>
                             <div class='container'>
                                 <div class='hero-content'>
-                                    <h2 style='color: white;'>Your Cozy Base Near Gulmarg</h2>
+                                    <h1>Your Cozy Base Near Gulmarg</h1>
                                     <p class='hero-subtitle'>Find warm Kashmiri hospitality at Conifer View Guest House</p>
                                     <p class='hero-location'>
                                         <i class='fas fa-map-marker-alt'/>
@@ -4398,8 +4398,9 @@ header[class^="header-"]:not(.header-index) {
         // Mobile menu toggle
         if (mobileMenu && navLinks) {
             mobileMenu.addEventListener('click', function() {
-                mobileMenu.classList.toggle('active');
+                const isExpanded = mobileMenu.classList.toggle('active');
                 navLinks.classList.toggle('active');
+                mobileMenu.setAttribute('aria-expanded', isExpanded);
                 document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
             });
 
