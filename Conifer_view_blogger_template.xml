@@ -4,7 +4,6 @@
 <head>
     <b:include data='blog' name='all-head-content'/>
     
-    <!-- Dynamic Title Tags - Shortened for Better SEO -->
     <b:if cond='data:view.isPost or data:view.isPage'>
         <title><data:blog.pageName/></title>
     <b:elseif cond='data:view.isHomepage'/>
@@ -21,7 +20,6 @@
         <title><data:blog.pageTitle/></title>
     </b:if>
 
-    <!-- Dynamic Meta Descriptions -->
     <b:if cond='data:view.isHomepage'>
         <meta content='Experience authentic Kashmiri hospitality at Conifer View Guest House in Tangmarg. Perfect base for Gulmarg adventures with verified ratings, free parking, and traditional family homestay.' name='description'/>
     <b:elseif cond='data:view.isPost'/>
@@ -46,10 +44,16 @@
         <meta content='The page you are looking for was not found. Explore our Kashmir homestay services, room bookings, and travel information.' name='description'/>
     </b:if>
     
-    <!-- Single Canonical URL -->
     <link expr:href='data:blog.url.canonical' rel='canonical'/>
+    <b:if cond='data:view.isMultipleItems'>
+        <b:if cond='data:olderPageUrl'>
+            <link expr:href='data:olderPageUrl' rel='next'/>
+        </b:if>
+        <b:if cond='data:newerPageUrl'>
+            <link expr:href='data:newerPageUrl' rel='prev'/>
+        </b:if>
+    </b:if>
     
-    <!-- Open Graph Tags -->
     <meta content='Conifer View Guest House - Kashmir Homestay' property='og:site_name'/>
     <meta content='en_IN' property='og:locale'/>
     
@@ -60,14 +64,13 @@
         <meta content='website' property='og:type'/>
     <b:elseif cond='data:view.isPost'/>
         <meta expr:content='data:post.canonicalUrl' property='og:url'/>
-        <meta expr:content='data:post.title + &quot; | Conifer View Guest House&quot;' property='og:title'/>
+        <meta expr:content='data:post.title + " | Conifer View Guest House"' property='og:title'/>
         <meta content='article' property='og:type'/>
         <b:if cond='data:post.snippet'>
             <meta expr:content='data:post.snippet' property='og:description'/>
         <b:else/>
             <meta content='Read more about Kashmir travel experiences and authentic hospitality at Conifer View Guest House.' property='og:description'/>
         </b:if>
-        <!-- Article-specific meta -->
         <b:if cond='data:post.author.profileUrl'>
             <meta expr:content='data:post.author.profileUrl' property='article:author'/>
         </b:if>
@@ -81,7 +84,7 @@
         </b:if>
     <b:elseif cond='data:view.isPage'/>
         <meta expr:content='data:post.canonicalUrl' property='og:url'/>
-        <meta expr:content='data:post.title + &quot; | Conifer View Guest House&quot;' property='og:title'/>
+        <meta expr:content='data:post.title + " | Conifer View Guest House"' property='og:title'/>
         <meta content='website' property='og:type'/>
         <b:if cond='data:post.snippet'>
             <meta expr:content='data:post.snippet' property='og:description'/>
@@ -90,16 +93,15 @@
         </b:if>
     <b:else/>
         <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
-        <meta expr:content='data:blog.title + &quot; | Conifer View Guest House&quot;' property='og:title'/>
+        <meta expr:content='data:blog.title + " | Conifer View Guest House"' property='og:title'/>
         <meta content='Discover Kashmir with Conifer View Guest House - your authentic homestay experience in the heart of the Himalayas.' property='og:description'/>
         <meta content='website' property='og:type'/>
     </b:if>
 
-    <!-- Dynamic Image Handling -->
     <b:if cond='data:view.isPost or data:view.isPage'>
         <b:if cond='data:post.featuredImage'>
-            <b:if cond='data:post.featuredImage contains &quot;blogger.googleusercontent.com&quot;'>
-                <meta expr:content='resizeImage(data:post.featuredImage, 1200, &quot;1200:630&quot;)' property='og:image'/>
+            <b:if cond='data:post.featuredImage contains "blogger.googleusercontent.com"'>
+                <meta expr:content='resizeImage(data:post.featuredImage, 1200, "1200:630")' property='og:image'/>
             <b:else/>
                 <meta expr:content='data:post.featuredImage' property='og:image'/>
             </b:if>
@@ -117,7 +119,6 @@
     <meta content='630' property='og:image:height'/>
     <meta content='image/jpeg' property='og:image:type'/>
 
-    <!-- Twitter Card Tags -->
     <meta content='summary_large_image' name='twitter:card'/>
     <meta content='@ConiferViewKashmir' name='twitter:site'/>
     <meta content='@ConiferViewKashmir' name='twitter:creator'/>
@@ -126,22 +127,21 @@
         <meta content='Conifer View Guest House - Best Homestay in Tangmarg near Gulmarg' name='twitter:title'/>
         <meta content='Experience authentic Kashmiri hospitality at Conifer View Guest House. Verified family homestay in Tangmarg, perfect base for Gulmarg adventures.' name='twitter:description'/>
     <b:elseif cond='data:view.isPost or data:view.isPage'/>
-        <meta expr:content='data:post.title + &quot; | Conifer View Guest House&quot;' name='twitter:title'/>
+        <meta expr:content='data:post.title + " | Conifer View Guest House"' name='twitter:title'/>
         <b:if cond='data:post.snippet'>
             <meta expr:content='data:post.snippet' name='twitter:description'/>
         <b:else/>
             <meta content='Read more about Kashmir travel experiences and authentic hospitality at Conifer View Guest House.' name='twitter:description'/>
         </b:if>
     <b:else/>
-        <meta expr:content='data:blog.title + &quot; | Conifer View Guest House&quot;' name='twitter:title'/>
+        <meta expr:content='data:blog.title + " | Conifer View Guest House"' name='twitter:title'/>
         <meta content='Discover Kashmir with Conifer View Guest House - your authentic homestay experience in the heart of the Himalayas.' name='twitter:description'/>
     </b:if>
     
-    <!-- Twitter Images -->
     <b:if cond='data:view.isPost or data:view.isPage'>
         <b:if cond='data:post.featuredImage'>
-            <b:if cond='data:post.featuredImage contains &quot;blogger.googleusercontent.com&quot;'>
-                <meta expr:content='resizeImage(data:post.featuredImage, 1200, &quot;1200:630&quot;)' name='twitter:image'/>
+            <b:if cond='data:post.featuredImage contains "blogger.googleusercontent.com"'>
+                <meta expr:content='resizeImage(data:post.featuredImage, 1200, "1200:630")' name='twitter:image'/>
             <b:else/>
                 <meta expr:content='data:post.featuredImage' name='twitter:image'/>
             </b:if>
@@ -155,188 +155,184 @@
         <meta content='Conifer View Guest House exterior with mountain views' name='twitter:image:alt'/>
     </b:if>
 
-    <!-- Structured Data for Homepage -->
     <b:if cond='data:view.isHomepage'>
         <script type='application/ld+json'>
         {
-            &quot;@context&quot;: &quot;https://schema.org&quot;,
-            &quot;@type&quot;: &quot;LodgingBusiness&quot;,
-            &quot;@id&quot;: &quot;<b:eval expr='data:blog.canonicalUrl'/>#lodging&quot;,
-            &quot;name&quot;: &quot;Conifer View Guest House&quot;,
-            &quot;description&quot;: &quot;Cozy mountain homestay in Tangmarg offering authentic Kashmiri hospitality, perfect base for Gulmarg adventures.&quot;,
-            &quot;url&quot;: &quot;<b:eval expr='data:blog.canonicalUrl'/>&quot;,
-            &quot;image&quot;: [
-                &quot;https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0__cRDWLERYZhcNeW5VVNaS8QEzVTxilkRzLN-Zac_6aRKSFZFDwvKfIjRYtVXDWQC_bsgiK5PhD9wMq4Vhk1jnwr5MhfrG3flJyyCPfHDpcIjbTdCjTWK7UFp6I2-gFzU0XSOSzO3VqAKgnrZtZogbKDvqOt09R-alnpyY-baVsPGBTxwIPZMONsmZQ/s1200/IMG-20231213-WA0075.jpg&quot;
+            "@context": "https://schema.org",
+            "@type": "LodgingBusiness",
+            "@id": "<b:eval expr='data:blog.canonicalUrl'/>#lodging",
+            "name": "Conifer View Guest House",
+            "description": "Cozy mountain homestay in Tangmarg offering authentic Kashmiri hospitality, perfect base for Gulmarg adventures.",
+            "url": "<b:eval expr='data:blog.canonicalUrl'/>",
+            "image": [
+                "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0__cRDWLERYZhcNeW5VVNaS8QEzVTxilkRzLN-Zac_6aRKSFZFDwvKfIjRYtVXDWQC_bsgiK5PhD9wMq4Vhk1jnwr5MhfrG3flJyyCPfHDpcIjbTdCjTWK7UFp6I2-gFzU0XSOSzO3VqAKgnrZtZogbKDvqOt09R-alnpyY-baVsPGBTxwIPZMONsmZQ/s1200/IMG-20231213-WA0075.jpg"
             ],
-            &quot;address&quot;: {
-                &quot;@type&quot;: &quot;PostalAddress&quot;,
-                &quot;streetAddress&quot;: &quot;Iqbal Colony Road, Tangmarg&quot;,
-                &quot;addressLocality&quot;: &quot;Baramulla&quot;,
-                &quot;addressRegion&quot;: &quot;Jammu and Kashmir&quot;,
-                &quot;postalCode&quot;: &quot;193402&quot;,
-                &quot;addressCountry&quot;: &quot;IN&quot;
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Iqbal Colony Road, Tangmarg",
+                "addressLocality": "Baramulla",
+                "addressRegion": "Jammu and Kashmir",
+                "postalCode": "193402",
+                "addressCountry": "IN"
             },
-            &quot;geo&quot;: {
-                &quot;@type&quot;: &quot;GeoCoordinates&quot;,
-                &quot;latitude&quot;: &quot;34.0837&quot;,
-                &quot;longitude&quot;: &quot;74.3975&quot;
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": "34.0837",
+                "longitude": "74.3975"
             },
-            &quot;telephone&quot;: &quot;+91-70065-08551&quot;,
-            &quot;priceRange&quot;: &quot;&#8377;&#8377;&quot;,
-            &quot;checkinTime&quot;: &quot;13:00&quot;,
-            &quot;checkoutTime&quot;: &quot;11:00&quot;,
-            &quot;paymentAccepted&quot;: [&quot;Cash&quot;, &quot;Credit Card&quot;, &quot;Debit Card&quot;, &quot;UPI&quot;],
-            &quot;currenciesAccepted&quot;: &quot;INR&quot;,
-            &quot;amenityFeature&quot;: [
-                {&quot;@type&quot;: &quot;LocationFeatureSpecification&quot;, &quot;name&quot;: &quot;Free Parking&quot;, &quot;value&quot;: true},
-                {&quot;@type&quot;: &quot;LocationFeatureSpecification&quot;, &quot;name&quot;: &quot;Free WiFi&quot;, &quot;value&quot;: true},
-                {&quot;@type&quot;: &quot;LocationFeatureSpecification&quot;, &quot;name&quot;: &quot;Breakfast&quot;, &quot;value&quot;: true},
-                {&quot;@type&quot;: &quot;LocationFeatureSpecification&quot;, &quot;name&quot;: &quot;Garden&quot;, &quot;value&quot;: true},
-                {&quot;@type&quot;: &quot;LocationFeatureSpecification&quot;, &quot;name&quot;: &quot;24-hour front desk&quot;, &quot;value&quot;: true},
-                {&quot;@type&quot;: &quot;LocationFeatureSpecification&quot;, &quot;name&quot;: &quot;Mountain Views&quot;, &quot;value&quot;: true},
-                {&quot;@type&quot;: &quot;LocationFeatureSpecification&quot;, &quot;name&quot;: &quot;Family Friendly&quot;, &quot;value&quot;: true},
-                {&quot;@type&quot;: &quot;LocationFeatureSpecification&quot;, &quot;name&quot;: &quot;Room Service&quot;, &quot;value&quot;: true}
+            "telephone": "+91-70065-08551",
+            "priceRange": "₹₹",
+            "checkinTime": "13:00",
+            "checkoutTime": "11:00",
+            "paymentAccepted": ["Cash", "Credit Card", "Debit Card", "UPI"],
+            "currenciesAccepted": "INR",
+            "amenityFeature": [
+                {"@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true},
+                {"@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true},
+                {"@type": "LocationFeatureSpecification", "name": "Breakfast", "value": true},
+                {"@type": "LocationFeatureSpecification", "name": "Garden", "value": true},
+                {"@type": "LocationFeatureSpecification", "name": "24-hour front desk", "value": true},
+                {"@type": "LocationFeatureSpecification", "name": "Mountain Views", "value": true},
+                {"@type": "LocationFeatureSpecification", "name": "Family Friendly", "value": true},
+                {"@type": "LocationFeatureSpecification", "name": "Room Service", "value": true}
             ],
-            &quot;smokingAllowed&quot;: false,
-            &quot;petsAllowed&quot;: true,
-            &quot;openingHours&quot;: &quot;Mo-Su 00:00-24:00&quot;,
-            &quot;potentialAction&quot;: {
-                &quot;@type&quot;: &quot;ReserveAction&quot;,
-                &quot;target&quot;: {
-                    &quot;@type&quot;: &quot;EntryPoint&quot;,
-                    &quot;urlTemplate&quot;: &quot;<b:eval expr='data:blog.canonicalUrl'/>#contact&quot;
+            "smokingAllowed": false,
+            "petsAllowed": true,
+            "openingHours": "Mo-Su 00:00-24:00",
+            "potentialAction": {
+                "@type": "ReserveAction",
+                "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": "<b:eval expr='data:blog.canonicalUrl'/>#contact"
                 }
             },
-            &quot;sameAs&quot;: [
-                &quot;https://www.booking.com/hotel/in/conifer-view-guest-house-baramulla2.html&quot;,
-                &quot;https://www.makemytrip.com/hotels/conifer_view_guest_house-details-gulmarg.html&quot;
+            "sameAs": [
+                "https://www.booking.com/hotel/in/conifer-view-guest-house-baramulla2.html",
+                "https://www.makemytrip.com/hotels/conifer_view_guest_house-details-gulmarg.html"
             ]
         }
         </script>
         
         <script type='application/ld+json'>
         {
-            &quot;@context&quot;: &quot;https://schema.org&quot;,
-            &quot;@type&quot;: &quot;WebSite&quot;,
-            &quot;@id&quot;: &quot;<data:blog.canonicalUrl/>#website&quot;,
-            &quot;name&quot;: &quot;Conifer View Guest House&quot;,
-            &quot;url&quot;: &quot;<data:blog.canonicalUrl/>&quot;,
-            &quot;description&quot;: &quot;Official website of Conifer View Guest House - Kashmir premier homestay experience&quot;,
-            &quot;publisher&quot;: {
-                &quot;@type&quot;: &quot;Organization&quot;,
-                &quot;name&quot;: &quot;Conifer View Guest House&quot;,
-                &quot;url&quot;: &quot;<data:blog.canonicalUrl/>&quot;,
-                &quot;logo&quot;: {
-                    &quot;@type&quot;: &quot;ImageObject&quot;,
-                    &quot;url&quot;: &quot;https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0__cRDWLERYZhcNeW5VVNaS8QEzVTxilkRzLN-Zac_6aRKSFZFDwvKfIjRYtVXDWQC_bsgiK5PhD9wMq4Vhk1jnwr5MhfrG3flJyyCPfHDpcIjbTdCjTWK7UFp6I2-gFzU0XSOSzO3VqAKgnrZtZogbKDvqOt09R-alnpyY-baVsPGBTxwIPZMONsmZQ/s600/IMG-20231213-WA0075.jpg&quot;,
-                    &quot;width&quot;: 600,
-                    &quot;height&quot;: 600
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "@id": "<data:blog.canonicalUrl/>#website",
+            "name": "Conifer View Guest House",
+            "url": "<data:blog.canonicalUrl/>",
+            "description": "Official website of Conifer View Guest House - Kashmir premier homestay experience",
+            "publisher": {
+                "@type": "Organization",
+                "name": "Conifer View Guest House",
+                "url": "<data:blog.canonicalUrl/>",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0__cRDWLERYZhcNeW5VVNaS8QEzVTxilkRzLN-Zac_6aRKSFZFDwvKfIjRYtVXDWQC_bsgiK5PhD9wMq4Vhk1jnwr5MhfrG3flJyyCPfHDpcIjbTdCjTWK7UFp6I2-gFzU0XSOSzO3VqAKgnrZtZogbKDvqOt09R-alnpyY-baVsPGBTxwIPZMONsmZQ/s600/IMG-20231213-WA0075.jpg",
+                    "width": 600,
+                    "height": 600
                 },
-                &quot;contactPoint&quot;: {
-                    &quot;@type&quot;: &quot;ContactPoint&quot;,
-                    &quot;telephone&quot;: &quot;+91-70065-08551&quot;,
-                    &quot;contactType&quot;: &quot;customer service&quot;,
-                    &quot;availableLanguage&quot;: [&quot;English&quot;, &quot;Hindi&quot;, &quot;Urdu&quot;, &quot;Kashmiri&quot;],
-                    &quot;areaServed&quot;: &quot;IN&quot;
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "telephone": "+91-70065-08551",
+                    "contactType": "customer service",
+                    "availableLanguage": ["English", "Hindi", "Urdu", "Kashmiri"],
+                    "areaServed": "IN"
                 },
-                &quot;address&quot;: {
-                    &quot;@type&quot;: &quot;PostalAddress&quot;,
-                    &quot;streetAddress&quot;: &quot;Iqbal Colony Road, Tangmarg&quot;,
-                    &quot;addressLocality&quot;: &quot;Baramulla&quot;,
-                    &quot;addressRegion&quot;: &quot;Jammu and Kashmir&quot;,
-                    &quot;postalCode&quot;: &quot;193402&quot;,
-                    &quot;addressCountry&quot;: &quot;IN&quot;
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "Iqbal Colony Road, Tangmarg",
+                    "addressLocality": "Baramulla",
+                    "addressRegion": "Jammu and Kashmir",
+                    "postalCode": "193402",
+                    "addressCountry": "IN"
                 }
             },
-            &quot;potentialAction&quot;: {
-                &quot;@type&quot;: &quot;SearchAction&quot;,
-                &quot;target&quot;: {
-                    &quot;@type&quot;: &quot;EntryPoint&quot;,
-                    &quot;urlTemplate&quot;: &quot;<data:blog.canonicalUrl/>search?q={search_term_string}&quot;
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": "<data:blog.canonicalUrl/>search?q={search_term_string}"
                 },
-                &quot;query-input&quot;: &quot;required name=search_term_string&quot;
+                "query-input": "required name=search_term_string"
             }
         }
         </script>
     </b:if>
 
-    <!-- BlogPosting Schema for Posts -->
     <b:if cond='data:view.isPost'>
         <script type='application/ld+json'>
         {
-            &quot;@context&quot;: &quot;https://schema.org&quot;,
-            &quot;@type&quot;: &quot;BlogPosting&quot;,
-            &quot;headline&quot;: &quot;<b:eval expr='data:post.title'/>&quot;,
-            &quot;description&quot;: &quot;<b:eval expr='data:post.snippet ? data:post.snippet : &quot;Read more about Kashmir travel experiences at Conifer View Guest House.&quot;'/>&quot;,
-            &quot;image&quot;: {
-                &quot;@type&quot;: &quot;ImageObject&quot;,
-                &quot;url&quot;: &quot;<b:eval expr='data:post.featuredImage ? data:post.featuredImage : &quot;https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0__cRDWLERYZhcNeW5VVNaS8QEzVTxilkRzLN-Zac_6aRKSFZFDwvKfIjRYtVXDWQC_bsgiK5PhD9wMq4Vhk1jnwr5MhfrG3flJyyCPfHDpcIjbTdCjTWK7UFp6I2-gFzU0XSOSzO3VqAKgnrZtZogbKDvqOt09R-alnpyY-baVsPGBTxwIPZMONsmZQ/s1200/IMG-20231213-WA0075.jpg&quot;'/>&quot;,
-                &quot;width&quot;: 1200,
-                &quot;height&quot;: 630
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": "<b:eval expr='data:post.title'/>",
+            "description": "<b:eval expr='data:post.snippet ? data:post.snippet : "Read more about Kashmir travel experiences at Conifer View Guest House."'/>",
+            "image": {
+                "@type": "ImageObject",
+                "url": "<b:eval expr='data:post.featuredImage ? data:post.featuredImage : "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0__cRDWLERYZhcNeW5VVNaS8QEzVTxilkRzLN-Zac_6aRKSFZFDwvKfIjRYtVXDWQC_bsgiK5PhD9wMq4Vhk1jnwr5MhfrG3flJyyCPfHDpcIjbTdCjTWK7UFp6I2-gFzU0XSOSzO3VqAKgnrZtZogbKDvqOt09R-alnpyY-baVsPGBTxwIPZMONsmZQ/s1200/IMG-20231213-WA0075.jpg"'/>",
+                "width": 1200,
+                "height": 630
             },
-            &quot;author&quot;: {
-                &quot;@type&quot;: &quot;Person&quot;,
-                &quot;name&quot;: &quot;<b:eval expr='data:post.author.displayName'/>&quot;,
-                &quot;url&quot;: &quot;<b:eval expr='data:post.author.profileUrl ? data:post.author.profileUrl : data:blog.canonicalUrl'/>&quot;
+            "author": {
+                "@type": "Person",
+                "name": "<b:eval expr='data:post.author.displayName'/>",
+                "url": "<b:eval expr='data:post.author.profileUrl ? data:post.author.profileUrl : data:blog.canonicalUrl'/>"
             },
-            &quot;publisher&quot;: {
-                &quot;@type&quot;: &quot;Organization&quot;,
-                &quot;name&quot;: &quot;Conifer View Guest House&quot;,
-                &quot;logo&quot;: {
-                    &quot;@type&quot;: &quot;ImageObject&quot;,
-                    &quot;url&quot;: &quot;https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0__cRDWLERYZhcNeW5VVNaS8QEzVTxilkRzLN-Zac_6aRKSFZFDwvKfIjRYtVXDWQC_bsgiK5PhD9wMq4Vhk1jnwr5MhfrG3flJyyCPfHDpcIjbTdCjTWK7UFp6I2-gFzU0XSOSzO3VqAKgnrZtZogbKDvqOt09R-alnpyY-baVsPGBTxwIPZMONsmZQ/s600/IMG-20231213-WA0075.jpg&quot;,
-                    &quot;width&quot;: 600,
-                    &quot;height&quot;: 600
+            "publisher": {
+                "@type": "Organization",
+                "name": "Conifer View Guest House",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0__cRDWLERYZhcNeW5VVNaS8QEzVTxilkRzLN-Zac_6aRKSFZFDwvKfIjRYtVXDWQC_bsgiK5PhD9wMq4Vhk1jnwr5MhfrG3flJyyCPfHDpcIjbTdCjTWK7UFp6I2-gFzU0XSOSzO3VqAKgnrZtZogbKDvqOt09R-alnpyY-baVsPGBTxwIPZMONsmZQ/s600/IMG-20231213-WA0075.jpg",
+                    "width": 600,
+                    "height": 600
                 }
             },
-            &quot;datePublished&quot;: &quot;<b:eval expr='data:post.timestampISO8601'/>&quot;,
-            &quot;dateModified&quot;: &quot;<b:eval expr='data:post.lastUpdatedISO8601'/>&quot;,
-            &quot;mainEntityOfPage&quot;: {
-                &quot;@type&quot;: &quot;WebPage&quot;,
-                &quot;@id&quot;: &quot;<b:eval expr='data:post.canonicalUrl'/>&quot;
+            "datePublished": "<b:eval expr='data:post.timestampISO8601'/>",
+            "dateModified": "<b:eval expr='data:post.lastUpdatedISO8601'/>",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "<b:eval expr='data:post.canonicalUrl'/>"
             },
-            &quot;url&quot;: &quot;<b:eval expr='data:post.canonicalUrl'/>&quot;,
-            &quot;wordCount&quot;: <b:eval expr='data:post.body.wordCount'/>,
-            &quot;commentCount&quot;: <b:eval expr='data:post.numComments'/>,
-            &quot;articleSection&quot;: &quot;Travel&quot;,
-            &quot;inLanguage&quot;: &quot;en-IN&quot;
+            "url": "<b:eval expr='data:post.canonicalUrl'/>",
+            "wordCount": <b:eval expr='data:post.body.wordCount'/>,
+            "commentCount": <b:eval expr='data:post.numComments'/>,
+            "articleSection": "Travel",
+            "inLanguage": "en-IN"
         }
         </script>
     </b:if>
 
-    <!-- Breadcrumb Schema for Posts -->
     <b:if cond='data:view.isPost and data:post.labels'>
         <script type='application/ld+json'>
         {
-            &quot;@context&quot;: &quot;https://schema.org&quot;,
-            &quot;@type&quot;: &quot;BreadcrumbList&quot;,
-            &quot;itemListElement&quot;: [
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
                 {
-                    &quot;@type&quot;: &quot;ListItem&quot;,
-                    &quot;position&quot;: 1,
-                    &quot;name&quot;: &quot;Home&quot;,
-                    &quot;item&quot;: &quot;<data:blog.canonicalUrl/>&quot;
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "<data:blog.canonicalUrl/>"
                 },
                 <b:loop values='data:post.labels' var='label'>
                 {
-                    &quot;@type&quot;: &quot;ListItem&quot;, 
-                    &quot;position&quot;: <b:eval expr='data:label.index + 2'/>,
-                    &quot;name&quot;: &quot;<data:label.name/>&quot;,
-                    &quot;item&quot;: &quot;<data:label.url/>&quot;
+                    "@type": "ListItem", 
+                    "position": <b:eval expr='data:label.index + 2'/>,
+                    "name": "<data:label.name/>",
+                    "item": "<data:label.url/>"
                 }<b:if cond='not data:label.isLast'>,</b:if>
                 </b:loop>,
                 {
-                    &quot;@type&quot;: &quot;ListItem&quot;,
-                    &quot;position&quot;: <b:eval expr='data:post.labels.size + 2'/>,
-                    &quot;name&quot;: &quot;<data:post.title/>&quot;,
-                    &quot;item&quot;: &quot;<data:post.canonicalUrl/>&quot;
+                    "@type": "ListItem",
+                    "position": <b:eval expr='data:post.labels.size + 2'/>,
+                    "name": "<data:post.title/>",
+                    "item": "<data:post.canonicalUrl/>"
                 }
             ]
         }
         </script>
     </b:if>
 
-    <!-- Essential Meta Tags -->
     <meta content='width=device-width, initial-scale=1.0, viewport-fit=cover' name='viewport'/>
     <meta content='IE=edge' http-equiv='X-UA-Compatible'/>
     <meta content='#2563eb' name='theme-color'/>
@@ -344,12 +340,10 @@
     <meta content='Conifer View Guest House' name='application-name'/>
     <meta content='index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1' name='robots'/>
 
-    <!-- Preconnect for Performance -->
     <link href='https://fonts.googleapis.com' rel='preconnect'/>
     <link crossorigin='' href='https://fonts.gstatic.com' rel='preconnect'/>
     <link href='https://blogger.googleusercontent.com' rel='preconnect'/>
 
-    <!-- Security Headers -->
     <meta content='nosniff' http-equiv='X-Content-Type-Options'/>
     <meta content='SAMEORIGIN' http-equiv='X-Frame-Options'/>
     <meta content='1; mode=block' http-equiv='X-XSS-Protection'/>
