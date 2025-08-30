@@ -217,14 +217,14 @@
         {
             "@context": "https://schema.org",
             "@type": "WebSite",
-            "@id": "<data:blog.canonicalUrl/>#website",
+            "@id": "<b:eval expr='data:blog.canonicalUrl'/>#website",
             "name": "Conifer View Guest House",
-            "url": "<data:blog.canonicalUrl/>",
+            "url": "<b:eval expr='data:blog.canonicalUrl'/>",
             "description": "Official website of Conifer View Guest House - Kashmir premier homestay experience",
             "publisher": {
                 "@type": "Organization",
                 "name": "Conifer View Guest House",
-                "url": "<data:blog.canonicalUrl/>",
+                "url": "<b:eval expr='data:blog.canonicalUrl'/>",
                 "logo": {
                     "@type": "ImageObject",
                     "url": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0__cRDWLERYZhcNeW5VVNaS8QEzVTxilkRzLN-Zac_6aRKSFZFDwvKfIjRYtVXDWQC_bsgiK5PhD9wMq4Vhk1jnwr5MhfrG3flJyyCPfHDpcIjbTdCjTWK7UFp6I2-gFzU0XSOSzO3VqAKgnrZtZogbKDvqOt09R-alnpyY-baVsPGBTxwIPZMONsmZQ/s600/IMG-20231213-WA0075.jpg",
@@ -251,7 +251,7 @@
                 "@type": "SearchAction",
                 "target": {
                     "@type": "EntryPoint",
-                    "urlTemplate": "<data:blog.canonicalUrl/>search?q={search_term_string}"
+                    "urlTemplate": "<b:eval expr='data:blog.canonicalUrl + &quot;search?q={search_term_string}&quot;'/>"
                 },
                 "query-input": "required name=search_term_string"
             }
@@ -1139,112 +1139,112 @@ transform: rotate(180deg);
 } 
 
 /* FIXED LATEST UPDATES SECTION - Better card alignment and styling */
-.posts-grid {
-    display: flex !important;
+#latest-posts .posts-grid {
+    display: flex;
     flex-wrap: wrap;
-    gap: 2rem !important;
-    justify-content: flex-start !important;
-    align-items: stretch !important;
+    gap: 2rem;
+    justify-content: flex-start;
+    align-items: stretch;
 }
 
-.post-card {
-    flex: 0 1 calc(33.333% - 1.5rem) !important;
-    background: var(--white) !important;
-    border-radius: var(--border-radius) !important;
-    box-shadow: var(--shadow-light) !important;
-    overflow: hidden !important;
-    transition: var(--transition) !important;
-    border: 1px solid var(--border-light) !important;
-    display: flex !important;
-    flex-direction: column !important;
+#latest-posts .post-card {
+    flex: 0 1 calc(33.333% - 1.5rem);
+    background: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+    overflow: hidden;
+    transition: var(--transition);
+    border: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
 }
 
-.post-card:hover {
-    transform: translateY(-8px) !important;
-    box-shadow: var(--shadow-hover) !important;
+#latest-posts .post-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
 }
 
-.post-card-image {
-    height: 200px !important;
-    background: linear-gradient(135deg, var(--bg-light), var(--border-light)) !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    overflow: hidden !important;
-    position: relative !important;
+#latest-posts .post-card-image {
+    height: 200px;
+    background: linear-gradient(135deg, var(--bg-light), var(--border-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
 }
 
-.post-card-image img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    transition: var(--transition) !important;
+#latest-posts .post-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
 }
 
-.post-card-image i {
-    font-size: 3rem !important;
-    color: var(--text-lighter) !important;
+#latest-posts .post-card-image i {
+    font-size: 3rem;
+    color: var(--text-lighter);
 }
 
-.post-card:hover .post-card-image img {
-    transform: scale(1.05) !important;
+#latest-posts .post-card:hover .post-card-image img {
+    transform: scale(1.05);
 }
 
-.post-card-content {
-    padding: 1.5rem !important;
-    flex-grow: 1 !important;
-    display: flex !important;
-    flex-direction: column !important;
+#latest-posts .post-card-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-.post-card-title {
-    margin-bottom: 1rem !important;
+#latest-posts .post-card-title {
+    margin-bottom: 1rem;
 }
 
-.post-card-title a {
-    font-size: 1.2rem !important;
-    font-weight: 700 !important;
-    color: var(--primary-color) !important;
-    line-height: 1.3 !important;
-    text-decoration: none !important;
+#latest-posts .post-card-title a {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    line-height: 1.3;
+    text-decoration: none;
 }
 
-.post-card-title a:hover {
-    color: var(--accent-color) !important;
+#latest-posts .post-card-title a:hover {
+    color: var(--accent-color);
 }
 
-.post-card-excerpt {
-    color: var(--text-light) !important;
-    font-size: 1rem !important;
-    line-height: 1.5 !important;
-    margin-bottom: auto !important;
-    display: -webkit-box !important;
-    -webkit-line-clamp: 3 !important;
-    -webkit-box-orient: vertical !important;
-    overflow: hidden !important;
+#latest-posts .post-card-excerpt {
+    color: var(--text-light);
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: auto;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-.post-card-meta {
-    margin-top: 1rem !important;
-    padding-top: 1rem !important;
-    border-top: 1px solid var(--border-light) !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    color: var(--text-lighter) !important;
-    font-size: 0.9rem !important;
-    gap: 1rem !important;
+#latest-posts .post-card-meta {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-lighter);
+    font-size: 0.9rem;
+    gap: 1rem;
 }
 
-.post-card-meta span {
-    display: flex !important;
-    align-items: center !important;
-    gap: 0.5rem !important;
+#latest-posts .post-card-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.post-card-meta i {
-    color: var(--accent-color) !important;
-    font-size: 0.9rem !important;
+#latest-posts .post-card-meta i {
+    color: var(--accent-color);
+    font-size: 0.9rem;
 }
 
 /* COMPLETELY REDESIGNED CONTACT SECTION */
@@ -1904,7 +1904,7 @@ transform: rotate(180deg);
 .review-platform {
         font-size: 0.9rem;
         font-weight: 500;
-        color: white;
+        color: var(--text-color);
         background-color: var(--bg-light);
         padding: 0.25rem 0.75rem;
         border-radius: 20px;
@@ -1991,6 +1991,48 @@ header[class^="header-"]:not(.header-index) {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
+/* Comments Section Styling */
+#comments {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-light);
+}
+.comments .comments-content {
+  margin-top: 1.5rem;
+}
+.comments .comment-thread.inline-thread {
+  background: var(--bg-lighter);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 1rem;
+}
+.comments .comment-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+.comments .user a {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+.comments .datetime a {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+.comments .comment-body {
+  padding-left: 50px; /* Indent under avatar */
+}
+.comments .comment-actions a {
+  margin-right: 1rem;
+  font-weight: 500;
+}
+#comment-editor {
+  max-width: 100%;
+  border: 1px solid var(--border-light) !important;
+  border-radius: var(--border-radius);
+}
+
 
 
 
@@ -2006,7 +2048,6 @@ header[class^="header-"]:not(.header-index) {
     <link href='/favicon-16x16.png' rel='icon' sizes='16x16' type='image/png'/>
     <link href='/apple-touch-icon.png' rel='apple-touch-icon'/>
     
-    <meta content='width=device-width, initial-scale=1.0, viewport-fit=cover' name='viewport'/>
     <meta content='telephone=no' name='format-detection'/>
     <meta content='#2c5530' name='theme-color'/>
     <meta content='#2c5530' name='msapplication-TileColor'/>
@@ -2021,7 +2062,11 @@ header[class^="header-"]:not(.header-index) {
         <header expr:class='&quot;header header-&quot; + data:blog.pageType' id='header' role='banner'>
             <nav aria-label='Main navigation' class='nav container' role='navigation'>
                 <a aria-label='Conifer View Guest House - Home' class='logo' href='/'>
+                  <b:if cond='data:view.isHomepage'>
                     <h1>Conifer View Guest House</h1>
+                  <b:else/>
+                    <p class='logo-text' style='font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; color: white; margin: 0; line-height: 1;'>Conifer View Guest House</p>
+                  </b:if>
                 </a>
                 
                 <ul class='nav-links' id='navLinks'>
@@ -4601,16 +4646,6 @@ header[class^="header-"]:not(.header-index) {
             }, 2000);
         });
         
-        // Service Worker registration for caching (optional)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js').then(function(registration) {
-                    console.log('SW registered: ', registration);
-                }).catch(function(registrationError) {
-                    console.log('SW registration failed: ', registrationError);
-                });
-            });
-        }
     }
 
     // Utility functions
