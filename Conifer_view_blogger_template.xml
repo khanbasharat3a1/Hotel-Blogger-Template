@@ -64,7 +64,7 @@
         <meta content='website' property='og:type'/>
     <b:elseif cond='data:view.isPost'/>
         <meta expr:content='data:post.canonicalUrl' property='og:url'/>
-        <meta expr:content='data:post.title + " | Conifer View Guest House"' property='og:title'/>
+        <meta expr:content='data:post.title + &quot; | Conifer View Guest House&quot;' property='og:title'/>
         <meta content='article' property='og:type'/>
         <b:if cond='data:post.snippet'>
             <meta expr:content='data:post.snippet' property='og:description'/>
@@ -84,7 +84,7 @@
         </b:if>
     <b:elseif cond='data:view.isPage'/>
         <meta expr:content='data:post.canonicalUrl' property='og:url'/>
-        <meta expr:content='data:post.title + " | Conifer View Guest House"' property='og:title'/>
+        <meta expr:content='data:post.title + &quot; | Conifer View Guest House&quot;' property='og:title'/>
         <meta content='website' property='og:type'/>
         <b:if cond='data:post.snippet'>
             <meta expr:content='data:post.snippet' property='og:description'/>
@@ -93,15 +93,15 @@
         </b:if>
     <b:else/>
         <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
-        <meta expr:content='data:blog.title + " | Conifer View Guest House"' property='og:title'/>
+        <meta expr:content='data:blog.title + &quot; | Conifer View Guest House&quot;' property='og:title'/>
         <meta content='Discover Kashmir with Conifer View Guest House - your authentic homestay experience in the heart of the Himalayas.' property='og:description'/>
         <meta content='website' property='og:type'/>
     </b:if>
 
     <b:if cond='data:view.isPost or data:view.isPage'>
         <b:if cond='data:post.featuredImage'>
-            <b:if cond='data:post.featuredImage contains "blogger.googleusercontent.com"'>
-                <meta expr:content='resizeImage(data:post.featuredImage, 1200, "1200:630")' property='og:image'/>
+            <b:if cond='data:post.featuredImage contains &quot;blogger.googleusercontent.com&quot;'>
+                <meta expr:content='resizeImage(data:post.featuredImage, 1200, &quot;1200:630&quot;)' property='og:image'/>
             <b:else/>
                 <meta expr:content='data:post.featuredImage' property='og:image'/>
             </b:if>
@@ -127,21 +127,21 @@
         <meta content='Conifer View Guest House - Best Homestay in Tangmarg near Gulmarg' name='twitter:title'/>
         <meta content='Experience authentic Kashmiri hospitality at Conifer View Guest House. Verified family homestay in Tangmarg, perfect base for Gulmarg adventures.' name='twitter:description'/>
     <b:elseif cond='data:view.isPost or data:view.isPage'/>
-        <meta expr:content='data:post.title + " | Conifer View Guest House"' name='twitter:title'/>
+        <meta expr:content='data:post.title + &quot; | Conifer View Guest House&quot;' name='twitter:title'/>
         <b:if cond='data:post.snippet'>
             <meta expr:content='data:post.snippet' name='twitter:description'/>
         <b:else/>
             <meta content='Read more about Kashmir travel experiences and authentic hospitality at Conifer View Guest House.' name='twitter:description'/>
         </b:if>
     <b:else/>
-        <meta expr:content='data:blog.title + " | Conifer View Guest House"' name='twitter:title'/>
+        <meta expr:content='data:blog.title + &quot; | Conifer View Guest House&quot;' name='twitter:title'/>
         <meta content='Discover Kashmir with Conifer View Guest House - your authentic homestay experience in the heart of the Himalayas.' name='twitter:description'/>
     </b:if>
     
     <b:if cond='data:view.isPost or data:view.isPage'>
         <b:if cond='data:post.featuredImage'>
-            <b:if cond='data:post.featuredImage contains "blogger.googleusercontent.com"'>
-                <meta expr:content='resizeImage(data:post.featuredImage, 1200, "1200:630")' name='twitter:image'/>
+            <b:if cond='data:post.featuredImage contains &quot;blogger.googleusercontent.com&quot;'>
+                <meta expr:content='resizeImage(data:post.featuredImage, 1200, &quot;1200:630&quot;)' name='twitter:image'/>
             <b:else/>
                 <meta expr:content='data:post.featuredImage' name='twitter:image'/>
             </b:if>
@@ -158,102 +158,102 @@
     <b:if cond='data:view.isHomepage'>
         <script type='application/ld+json'>
         {
-            "@context": "https://schema.org",
-            "@type": "LodgingBusiness",
-            "@id": "<b:eval expr='data:blog.canonicalUrl'/>#lodging",
-            "name": "Conifer View Guest House",
-            "description": "Cozy mountain homestay in Tangmarg offering authentic Kashmiri hospitality, perfect base for Gulmarg adventures.",
-            "url": "<b:eval expr='data:blog.canonicalUrl'/>",
-            "image": [
-                "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0__cRDWLERYZhcNeW5VVNaS8QEzVTxilkRzLN-Zac_6aRKSFZFDwvKfIjRYtVXDWQC_bsgiK5PhD9wMq4Vhk1jnwr5MhfrG3flJyyCPfHDpcIjbTdCjTWK7UFp6I2-gFzU0XSOSzO3VqAKgnrZtZogbKDvqOt09R-alnpyY-baVsPGBTxwIPZMONsmZQ/s1200/IMG-20231213-WA0075.jpg"
+            &quot;@context&quot;: &quot;https://schema.org&quot;,
+            &quot;@type&quot;: &quot;LodgingBusiness&quot;,
+            &quot;@id&quot;: &quot;<b:eval expr='data:blog.canonicalUrl'/>#lodging&quot;,
+            &quot;name&quot;: &quot;Conifer View Guest House&quot;,
+            &quot;description&quot;: &quot;Cozy mountain homestay in Tangmarg offering authentic Kashmiri hospitality, perfect base for Gulmarg adventures.&quot;,
+            &quot;url&quot;: &quot;<b:eval expr='data:blog.canonicalUrl'/>&quot;,
+            &quot;image&quot;: [
+                &quot;https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0__cRDWLERYZhcNeW5VVNaS8QEzVTxilkRzLN-Zac_6aRKSFZFDwvKfIjRYtVXDWQC_bsgiK5PhD9wMq4Vhk1jnwr5MhfrG3flJyyCPfHDpcIjbTdCjTWK7UFp6I2-gFzU0XSOSzO3VqAKgnrZtZogbKDvqOt09R-alnpyY-baVsPGBTxwIPZMONsmZQ/s1200/IMG-20231213-WA0075.jpg&quot;
             ],
-            "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "<b:eval expr='data:skin.vars.address_street'/>",
-                "addressLocality": "<b:eval expr='data:skin.vars.address_locality'/>",
-                "addressRegion": "<b:eval expr='data:skin.vars.address_region'/>",
-                "postalCode": "<b:eval expr='data:skin.vars.address_postalCode'/>",
-                "addressCountry": "<b:eval expr='data:skin.vars.address_country'/>"
+            &quot;address&quot;: {
+                &quot;@type&quot;: &quot;PostalAddress&quot;,
+                &quot;streetAddress&quot;: &quot;<b:eval expr='data:skin.vars.address_street'/>&quot;,
+                &quot;addressLocality&quot;: &quot;<b:eval expr='data:skin.vars.address_locality'/>&quot;,
+                &quot;addressRegion&quot;: &quot;<b:eval expr='data:skin.vars.address_region'/>&quot;,
+                &quot;postalCode&quot;: &quot;<b:eval expr='data:skin.vars.address_postalCode'/>&quot;,
+                &quot;addressCountry&quot;: &quot;<b:eval expr='data:skin.vars.address_country'/>&quot;
             },
-            "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": "34.0837",
-                "longitude": "74.3975"
+            &quot;geo&quot;: {
+                &quot;@type&quot;: &quot;GeoCoordinates&quot;,
+                &quot;latitude&quot;: &quot;34.0837&quot;,
+                &quot;longitude&quot;: &quot;74.3975&quot;
             },
-            "telephone": "<b:eval expr='data:skin.vars.phone_number'/>",
-            "priceRange": "₹₹",
-            "checkinTime": "13:00",
-            "checkoutTime": "11:00",
-            "paymentAccepted": ["Cash", "Credit Card", "Debit Card", "UPI"],
-            "currenciesAccepted": "INR",
-            "amenityFeature": [
-                {"@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true},
-                {"@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true},
-                {"@type": "LocationFeatureSpecification", "name": "Breakfast", "value": true},
-                {"@type": "LocationFeatureSpecification", "name": "Garden", "value": true},
-                {"@type": "LocationFeatureSpecification", "name": "24-hour front desk", "value": true},
-                {"@type": "LocationFeatureSpecification", "name": "Mountain Views", "value": true},
-                {"@type": "LocationFeatureSpecification", "name": "Family Friendly", "value": true},
-                {"@type": "LocationFeatureSpecification", "name": "Room Service", "value": true}
+            &quot;telephone&quot;: &quot;<b:eval expr='data:skin.vars.phone_number'/>&quot;,
+            &quot;priceRange&quot;: &quot;&#8377;&#8377;&quot;,
+            &quot;checkinTime&quot;: &quot;13:00&quot;,
+            &quot;checkoutTime&quot;: &quot;11:00&quot;,
+            &quot;paymentAccepted&quot;: [&quot;Cash&quot;, &quot;Credit Card&quot;, &quot;Debit Card&quot;, &quot;UPI&quot;],
+            &quot;currenciesAccepted&quot;: &quot;INR&quot;,
+            &quot;amenityFeature&quot;: [
+                {&quot;@type&quot;: &quot;LocationFeatureSpecification&quot;, &quot;name&quot;: &quot;Free Parking&quot;, &quot;value&quot;: true},
+                {&quot;@type&quot;: &quot;LocationFeatureSpecification&quot;, &quot;name&quot;: &quot;Free WiFi&quot;, &quot;value&quot;: true},
+                {&quot;@type&quot;: &quot;LocationFeatureSpecification&quot;, &quot;name&quot;: &quot;Breakfast&quot;, &quot;value&quot;: true},
+                {&quot;@type&quot;: &quot;LocationFeatureSpecification&quot;, &quot;name&quot;: &quot;Garden&quot;, &quot;value&quot;: true},
+                {&quot;@type&quot;: &quot;LocationFeatureSpecification&quot;, &quot;name&quot;: &quot;24-hour front desk&quot;, &quot;value&quot;: true},
+                {&quot;@type&quot;: &quot;LocationFeatureSpecification&quot;, &quot;name&quot;: &quot;Mountain Views&quot;, &quot;value&quot;: true},
+                {&quot;@type&quot;: &quot;LocationFeatureSpecification&quot;, &quot;name&quot;: &quot;Family Friendly&quot;, &quot;value&quot;: true},
+                {&quot;@type&quot;: &quot;LocationFeatureSpecification&quot;, &quot;name&quot;: &quot;Room Service&quot;, &quot;value&quot;: true}
             ],
-            "smokingAllowed": false,
-            "petsAllowed": true,
-            "openingHours": "Mo-Su 00:00-24:00",
-            "potentialAction": {
-                "@type": "ReserveAction",
-                "target": {
-                    "@type": "EntryPoint",
-                    "urlTemplate": "<b:eval expr='data:blog.canonicalUrl'/>#contact"
+            &quot;smokingAllowed&quot;: false,
+            &quot;petsAllowed&quot;: true,
+            &quot;openingHours&quot;: &quot;Mo-Su 00:00-24:00&quot;,
+            &quot;potentialAction&quot;: {
+                &quot;@type&quot;: &quot;ReserveAction&quot;,
+                &quot;target&quot;: {
+                    &quot;@type&quot;: &quot;EntryPoint&quot;,
+                    &quot;urlTemplate&quot;: &quot;<b:eval expr='data:blog.canonicalUrl'/>#contact&quot;
                 }
             },
-            "sameAs": [
-                "<b:eval expr='data:skin.vars.bookingcom_url'/>",
-                "<b:eval expr='data:skin.vars.makemytrip_url'/>"
+            &quot;sameAs&quot;: [
+                &quot;<b:eval expr='data:skin.vars.bookingcom_url'/>&quot;,
+                &quot;<b:eval expr='data:skin.vars.makemytrip_url'/>&quot;
             ]
         }
         </script>
         
         <script type='application/ld+json'>
         {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "@id": "<b:eval expr='data:blog.canonicalUrl'/>#website",
-            "name": "Conifer View Guest House",
-            "url": "<b:eval expr='data:blog.canonicalUrl'/>",
-            "description": "Official website of Conifer View Guest House - Kashmir premier homestay experience",
-            "publisher": {
-                "@type": "Organization",
-                "name": "Conifer View Guest House",
-                "url": "<b:eval expr='data:blog.canonicalUrl'/>",
-                "logo": {
-                    "@type": "ImageObject",
-                    "url": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0__cRDWLERYZhcNeW5VVNaS8QEzVTxilkRzLN-Zac_6aRKSFZFDwvKfIjRYtVXDWQC_bsgiK5PhD9wMq4Vhk1jnwr5MhfrG3flJyyCPfHDpcIjbTdCjTWK7UFp6I2-gFzU0XSOSzO3VqAKgnrZtZogbKDvqOt09R-alnpyY-baVsPGBTxwIPZMONsmZQ/s600/IMG-20231213-WA0075.jpg",
-                    "width": 600,
-                    "height": 600
+            &quot;@context&quot;: &quot;https://schema.org&quot;,
+            &quot;@type&quot;: &quot;WebSite&quot;,
+            &quot;@id&quot;: &quot;<data:blog.canonicalUrl/>#website&quot;,
+            &quot;name&quot;: &quot;Conifer View Guest House&quot;,
+            &quot;url&quot;: &quot;<data:blog.canonicalUrl/>&quot;,
+            &quot;description&quot;: &quot;Official website of Conifer View Guest House - Kashmir premier homestay experience&quot;,
+            &quot;publisher&quot;: {
+                &quot;@type&quot;: &quot;Organization&quot;,
+                &quot;name&quot;: &quot;Conifer View Guest House&quot;,
+                &quot;url&quot;: &quot;<data:blog.canonicalUrl/>&quot;,
+                &quot;logo&quot;: {
+                    &quot;@type&quot;: &quot;ImageObject&quot;,
+                    &quot;url&quot;: &quot;https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0__cRDWLERYZhcNeW5VVNaS8QEzVTxilkRzLN-Zac_6aRKSFZFDwvKfIjRYtVXDWQC_bsgiK5PhD9wMq4Vhk1jnwr5MhfrG3flJyyCPfHDpcIjbTdCjTWK7UFp6I2-gFzU0XSOSzO3VqAKgnrZtZogbKDvqOt09R-alnpyY-baVsPGBTxwIPZMONsmZQ/s600/IMG-20231213-WA0075.jpg&quot;,
+                    &quot;width&quot;: 600,
+                    &quot;height&quot;: 600
                 },
-                "contactPoint": {
-                    "@type": "ContactPoint",
-                    "telephone": "<b:eval expr='data:skin.vars.phone_number'/>",
-                    "contactType": "customer service",
-                    "availableLanguage": ["English", "Hindi", "Urdu", "Kashmiri"],
-                    "areaServed": "<b:eval expr='data:skin.vars.address_country'/>"
+                &quot;contactPoint&quot;: {
+                    &quot;@type&quot;: &quot;ContactPoint&quot;,
+                    &quot;telephone&quot;: &quot;<b:eval expr='data:skin.vars.phone_number'/>&quot;,
+                    &quot;contactType&quot;: &quot;customer service&quot;,
+                    &quot;availableLanguage&quot;: [&quot;English&quot;, &quot;Hindi&quot;, &quot;Urdu&quot;, &quot;Kashmiri&quot;],
+                    &quot;areaServed&quot;: &quot;<b:eval expr='data:skin.vars.address_country'/>&quot;
                 },
-                "address": {
-                    "@type": "PostalAddress",
-                    "streetAddress": "<b:eval expr='data:skin.vars.address_street'/>",
-                    "addressLocality": "<b:eval expr='data:skin.vars.address_locality'/>",
-                    "addressRegion": "<b:eval expr='data:skin.vars.address_region'/>",
-                    "postalCode": "<b:eval expr='data:skin.vars.address_postalCode'/>",
-                    "addressCountry": "<b:eval expr='data:skin.vars.address_country'/>"
+                &quot;address&quot;: {
+                    &quot;@type&quot;: &quot;PostalAddress&quot;,
+                    &quot;streetAddress&quot;: &quot;<b:eval expr='data:skin.vars.address_street'/>&quot;,
+                    &quot;addressLocality&quot;: &quot;<b:eval expr='data:skin.vars.address_locality'/>&quot;,
+                    &quot;addressRegion&quot;: &quot;<b:eval expr='data:skin.vars.address_region'/>&quot;,
+                    &quot;postalCode&quot;: &quot;<b:eval expr='data:skin.vars.address_postalCode'/>&quot;,
+                    &quot;addressCountry&quot;: &quot;<b:eval expr='data:skin.vars.address_country'/>&quot;
                 }
             },
-            "potentialAction": {
-                "@type": "SearchAction",
-                "target": {
-                    "@type": "EntryPoint",
-                    "urlTemplate": "<b:eval expr='data:blog.canonicalUrl + &quot;search?q={search_term_string}&quot;'/>"
+            &quot;potentialAction&quot;: {
+                &quot;@type&quot;: &quot;SearchAction&quot;,
+                &quot;target&quot;: {
+                    &quot;@type&quot;: &quot;EntryPoint&quot;,
+                    &quot;urlTemplate&quot;: &quot;<data:blog.canonicalUrl/>search?q={search_term_string}&quot;
                 },
-                "query-input": "required name=search_term_string"
+                &quot;query-input&quot;: &quot;required name=search_term_string&quot;
             }
         }
         </script>
@@ -262,42 +262,42 @@
     <b:if cond='data:view.isPost'>
         <script type='application/ld+json'>
         {
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "headline": "<b:eval expr='data:post.title'/>",
-            "description": "<b:eval expr='data:post.snippet ? data:post.snippet : "Read more about Kashmir travel experiences at Conifer View Guest House."'/>",
-            "image": {
-                "@type": "ImageObject",
-                "url": "<b:eval expr='data:post.featuredImage ? data:post.featuredImage : "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0__cRDWLERYZhcNeW5VVNaS8QEzVTxilkRzLN-Zac_6aRKSFZFDwvKfIjRYtVXDWQC_bsgiK5PhD9wMq4Vhk1jnwr5MhfrG3flJyyCPfHDpcIjbTdCjTWK7UFp6I2-gFzU0XSOSzO3VqAKgnrZtZogbKDvqOt09R-alnpyY-baVsPGBTxwIPZMONsmZQ/s1200/IMG-20231213-WA0075.jpg"'/>",
-                "width": 1200,
-                "height": 630
+            &quot;@context&quot;: &quot;https://schema.org&quot;,
+            &quot;@type&quot;: &quot;BlogPosting&quot;,
+            &quot;headline&quot;: &quot;<b:eval expr='data:post.title'/>&quot;,
+            &quot;description&quot;: &quot;<b:eval expr='data:post.snippet ? data:post.snippet : &quot;Read more about Kashmir travel experiences at Conifer View Guest House.&quot;'/>&quot;,
+            &quot;image&quot;: {
+                &quot;@type&quot;: &quot;ImageObject&quot;,
+                &quot;url&quot;: &quot;<b:eval expr='data:post.featuredImage ? data:post.featuredImage : &quot;https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0__cRDWLERYZhcNeW5VVNaS8QEzVTxilkRzLN-Zac_6aRKSFZFDwvKfIjRYtVXDWQC_bsgiK5PhD9wMq4Vhk1jnwr5MhfrG3flJyyCPfHDpcIjbTdCjTWK7UFp6I2-gFzU0XSOSzO3VqAKgnrZtZogbKDvqOt09R-alnpyY-baVsPGBTxwIPZMONsmZQ/s1200/IMG-20231213-WA0075.jpg&quot;'/>&quot;,
+                &quot;width&quot;: 1200,
+                &quot;height&quot;: 630
             },
-            "author": {
-                "@type": "Person",
-                "name": "<b:eval expr='data:post.author.displayName'/>",
-                "url": "<b:eval expr='data:post.author.profileUrl ? data:post.author.profileUrl : data:blog.canonicalUrl'/>"
+            &quot;author&quot;: {
+                &quot;@type&quot;: &quot;Person&quot;,
+                &quot;name&quot;: &quot;<b:eval expr='data:post.author.displayName'/>&quot;,
+                &quot;url&quot;: &quot;<b:eval expr='data:post.author.profileUrl ? data:post.author.profileUrl : data:blog.canonicalUrl'/>&quot;
             },
-            "publisher": {
-                "@type": "Organization",
-                "name": "Conifer View Guest House",
-                "logo": {
-                    "@type": "ImageObject",
-                    "url": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0__cRDWLERYZhcNeW5VVNaS8QEzVTxilkRzLN-Zac_6aRKSFZFDwvKfIjRYtVXDWQC_bsgiK5PhD9wMq4Vhk1jnwr5MhfrG3flJyyCPfHDpcIjbTdCjTWK7UFp6I2-gFzU0XSOSzO3VqAKgnrZtZogbKDvqOt09R-alnpyY-baVsPGBTxwIPZMONsmZQ/s600/IMG-20231213-WA0075.jpg",
-                    "width": 600,
-                    "height": 600
+            &quot;publisher&quot;: {
+                &quot;@type&quot;: &quot;Organization&quot;,
+                &quot;name&quot;: &quot;Conifer View Guest House&quot;,
+                &quot;logo&quot;: {
+                    &quot;@type&quot;: &quot;ImageObject&quot;,
+                    &quot;url&quot;: &quot;https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi0__cRDWLERYZhcNeW5VVNaS8QEzVTxilkRzLN-Zac_6aRKSFZFDwvKfIjRYtVXDWQC_bsgiK5PhD9wMq4Vhk1jnwr5MhfrG3flJyyCPfHDpcIjbTdCjTWK7UFp6I2-gFzU0XSOSzO3VqAKgnrZtZogbKDvqOt09R-alnpyY-baVsPGBTxwIPZMONsmZQ/s600/IMG-20231213-WA0075.jpg&quot;,
+                    &quot;width&quot;: 600,
+                    &quot;height&quot;: 600
                 }
             },
-            "datePublished": "<b:eval expr='data:post.timestampISO8601'/>",
-            "dateModified": "<b:eval expr='data:post.lastUpdatedISO8601'/>",
-            "mainEntityOfPage": {
-                "@type": "WebPage",
-                "@id": "<b:eval expr='data:post.canonicalUrl'/>"
+            &quot;datePublished&quot;: &quot;<b:eval expr='data:post.timestampISO8601'/>&quot;,
+            &quot;dateModified&quot;: &quot;<b:eval expr='data:post.lastUpdatedISO8601'/>&quot;,
+            &quot;mainEntityOfPage&quot;: {
+                &quot;@type&quot;: &quot;WebPage&quot;,
+                &quot;@id&quot;: &quot;<b:eval expr='data:post.canonicalUrl'/>&quot;
             },
-            "url": "<b:eval expr='data:post.canonicalUrl'/>",
-            "wordCount": <b:eval expr='data:post.body.wordCount'/>,
-            "commentCount": <b:eval expr='data:post.numComments'/>,
-            "articleSection": "Travel",
-            "inLanguage": "en-IN"
+            &quot;url&quot;: &quot;<b:eval expr='data:post.canonicalUrl'/>&quot;,
+            &quot;wordCount&quot;: <b:eval expr='data:post.body.wordCount'/>,
+            &quot;commentCount&quot;: <b:eval expr='data:post.numComments'/>,
+            &quot;articleSection&quot;: &quot;Travel&quot;,
+            &quot;inLanguage&quot;: &quot;en-IN&quot;
         }
         </script>
     </b:if>
@@ -305,32 +305,32 @@
     <b:if cond='data:view.isPost'>
         <script type='application/ld+json'>
         {
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
+            &quot;@context&quot;: &quot;https://schema.org&quot;,
+            &quot;@type&quot;: &quot;BreadcrumbList&quot;,
+            &quot;itemListElement&quot;: [
                 {
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "Home",
-                    "item": "<data:blog.homepageUrl/>"
+                    &quot;@type&quot;: &quot;ListItem&quot;,
+                    &quot;position&quot;: 1,
+                    &quot;name&quot;: &quot;Home&quot;,
+                    &quot;item&quot;: &quot;<data:blog.homepageUrl/>&quot;
                 }
                 <b:if cond='data:post.labels'>
                 ,
-                <b:loop values='data:post.labels' var='label' take='1'>
+                <b:loop take='1' values='data:post.labels' var='label'>
                 {
-                    "@type": "ListItem",
-                    "position": 2,
-                    "name": "<data:label.name/>",
-                    "item": "<data:label.url/>"
+                    &quot;@type&quot;: &quot;ListItem&quot;,
+                    &quot;position&quot;: 2,
+                    &quot;name&quot;: &quot;<data:label.name/>&quot;,
+                    &quot;item&quot;: &quot;<data:label.url/>&quot;
                 }
                 </b:loop>
                 </b:if>
                 ,
                 {
-                    "@type": "ListItem",
-                    "position": <b:eval expr='data:post.labels.size > 0 ? 3 : 2'/>,
-                    "name": "<data:post.title/>",
-                    "item": "<data:post.canonicalUrl/>"
+                    &quot;@type&quot;: &quot;ListItem&quot;,
+                    &quot;position&quot;: <b:eval expr='data:post.labels.size &gt; 0 ? 3 : 2'/>,
+                    &quot;name&quot;: &quot;<data:post.title/>&quot;,
+                    &quot;item&quot;: &quot;<data:post.canonicalUrl/>&quot;
                 }
             ]
         }
@@ -340,20 +340,20 @@
     <b:if cond='data:view.isPage or data:view.isArchive or data:view.isLabelSearch'>
         <script type='application/ld+json'>
         {
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
+            &quot;@context&quot;: &quot;https://schema.org&quot;,
+            &quot;@type&quot;: &quot;BreadcrumbList&quot;,
+            &quot;itemListElement&quot;: [
                 {
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "Home",
-                    "item": "<data:blog.homepageUrl/>"
+                    &quot;@type&quot;: &quot;ListItem&quot;,
+                    &quot;position&quot;: 1,
+                    &quot;name&quot;: &quot;Home&quot;,
+                    &quot;item&quot;: &quot;<data:blog.homepageUrl/>&quot;
                 },
                 {
-                    "@type": "ListItem",
-                    "position": 2,
-                    "name": "<data:blog.pageName/>",
-                    "item": "<data:blog.url/>"
+                    &quot;@type&quot;: &quot;ListItem&quot;,
+                    &quot;position&quot;: 2,
+                    &quot;name&quot;: &quot;<data:blog.pageName/>&quot;,
+                    &quot;item&quot;: &quot;<data:blog.url/>&quot;
                 }
             ]
         }
@@ -1139,112 +1139,112 @@ transform: rotate(180deg);
 } 
 
 /* FIXED LATEST UPDATES SECTION - Better card alignment and styling */
-#latest-posts .posts-grid {
-    display: flex;
+.posts-grid {
+    display: flex !important;
     flex-wrap: wrap;
-    gap: 2rem;
-    justify-content: flex-start;
-    align-items: stretch;
+    gap: 2rem !important;
+    justify-content: flex-start !important;
+    align-items: stretch !important;
 }
 
-#latest-posts .post-card {
-    flex: 0 1 calc(33.333% - 1.5rem);
-    background: var(--white);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-light);
-    overflow: hidden;
-    transition: var(--transition);
-    border: 1px solid var(--border-light);
-    display: flex;
-    flex-direction: column;
+.post-card {
+    flex: 0 1 calc(33.333% - 1.5rem) !important;
+    background: var(--white) !important;
+    border-radius: var(--border-radius) !important;
+    box-shadow: var(--shadow-light) !important;
+    overflow: hidden !important;
+    transition: var(--transition) !important;
+    border: 1px solid var(--border-light) !important;
+    display: flex !important;
+    flex-direction: column !important;
 }
 
-#latest-posts .post-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-hover);
+.post-card:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: var(--shadow-hover) !important;
 }
 
-#latest-posts .post-card-image {
-    height: 200px;
-    background: linear-gradient(135deg, var(--bg-light), var(--border-light));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
+.post-card-image {
+    height: 200px !important;
+    background: linear-gradient(135deg, var(--bg-light), var(--border-light)) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    position: relative !important;
 }
 
-#latest-posts .post-card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: var(--transition);
+.post-card-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    transition: var(--transition) !important;
 }
 
-#latest-posts .post-card-image i {
-    font-size: 3rem;
-    color: var(--text-lighter);
+.post-card-image i {
+    font-size: 3rem !important;
+    color: var(--text-lighter) !important;
 }
 
-#latest-posts .post-card:hover .post-card-image img {
-    transform: scale(1.05);
+.post-card:hover .post-card-image img {
+    transform: scale(1.05) !important;
 }
 
-#latest-posts .post-card-content {
-    padding: 1.5rem;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
+.post-card-content {
+    padding: 1.5rem !important;
+    flex-grow: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
 }
 
-#latest-posts .post-card-title {
-    margin-bottom: 1rem;
+.post-card-title {
+    margin-bottom: 1rem !important;
 }
 
-#latest-posts .post-card-title a {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--primary-color);
-    line-height: 1.3;
-    text-decoration: none;
+.post-card-title a {
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    color: var(--primary-color) !important;
+    line-height: 1.3 !important;
+    text-decoration: none !important;
 }
 
-#latest-posts .post-card-title a:hover {
-    color: var(--accent-color);
+.post-card-title a:hover {
+    color: var(--accent-color) !important;
 }
 
-#latest-posts .post-card-excerpt {
-    color: var(--text-light);
-    font-size: 1rem;
-    line-height: 1.5;
-    margin-bottom: auto;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+.post-card-excerpt {
+    color: var(--text-light) !important;
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    margin-bottom: auto !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
 }
 
-#latest-posts .post-card-meta {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border-light);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--text-lighter);
-    font-size: 0.9rem;
-    gap: 1rem;
+.post-card-meta {
+    margin-top: 1rem !important;
+    padding-top: 1rem !important;
+    border-top: 1px solid var(--border-light) !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    color: var(--text-lighter) !important;
+    font-size: 0.9rem !important;
+    gap: 1rem !important;
 }
 
-#latest-posts .post-card-meta span {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+.post-card-meta span {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
 }
 
-#latest-posts .post-card-meta i {
-    color: var(--accent-color);
-    font-size: 0.9rem;
+.post-card-meta i {
+    color: var(--accent-color) !important;
+    font-size: 0.9rem !important;
 }
 
 /* COMPLETELY REDESIGNED CONTACT SECTION */
@@ -1904,7 +1904,7 @@ transform: rotate(180deg);
 .review-platform {
         font-size: 0.9rem;
         font-weight: 500;
-        color: var(--text-color);
+        color: white;
         background-color: var(--bg-light);
         padding: 0.25rem 0.75rem;
         border-radius: 20px;
@@ -1991,48 +1991,6 @@ header[class^="header-"]:not(.header-index) {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Comments Section Styling */
-#comments {
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--border-light);
-}
-.comments .comments-content {
-  margin-top: 1.5rem;
-}
-.comments .comment-thread.inline-thread {
-  background: var(--bg-lighter);
-  padding: 1rem;
-  border-radius: var(--border-radius);
-  margin-bottom: 1rem;
-}
-.comments .comment-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 0.5rem;
-}
-.comments .user a {
-  font-weight: 600;
-  color: var(--primary-color);
-}
-.comments .datetime a {
-  font-size: 0.9rem;
-  color: var(--text-light);
-}
-.comments .comment-body {
-  padding-left: 50px; /* Indent under avatar */
-}
-.comments .comment-actions a {
-  margin-right: 1rem;
-  font-weight: 500;
-}
-#comment-editor {
-  max-width: 100%;
-  border: 1px solid var(--border-light) !important;
-  border-radius: var(--border-radius);
-}
-
 
 
 
@@ -2048,6 +2006,7 @@ header[class^="header-"]:not(.header-index) {
     <link href='/favicon-16x16.png' rel='icon' sizes='16x16' type='image/png'/>
     <link href='/apple-touch-icon.png' rel='apple-touch-icon'/>
     
+    <meta content='width=device-width, initial-scale=1.0, viewport-fit=cover' name='viewport'/>
     <meta content='telephone=no' name='format-detection'/>
     <meta content='#2c5530' name='theme-color'/>
     <meta content='#2c5530' name='msapplication-TileColor'/>
@@ -2062,11 +2021,7 @@ header[class^="header-"]:not(.header-index) {
         <header expr:class='&quot;header header-&quot; + data:blog.pageType' id='header' role='banner'>
             <nav aria-label='Main navigation' class='nav container' role='navigation'>
                 <a aria-label='Conifer View Guest House - Home' class='logo' href='/'>
-                  <b:if cond='data:view.isHomepage'>
-                    <p class='logo-text' style='font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700; color: white; margin: 0; line-height: 1;'>Conifer View Guest House</p>
-                  <b:else/>
                     <h1>Conifer View Guest House</h1>
-                  </b:if>
                 </a>
                 
                 <ul class='nav-links' id='navLinks'>
@@ -2081,7 +2036,7 @@ header[class^="header-"]:not(.header-index) {
                     </li>
                 </ul>
                 
-                <button aria-label='Toggle mobile menu' class='mobile-menu' id='mobileMenu' type='button' aria-expanded='false'>
+                <button aria-label='Toggle mobile menu' class='mobile-menu' id='mobileMenu' type='button'>
                     <span/>
                     <span/>
                     <span/>
@@ -2117,7 +2072,7 @@ header[class^="header-"]:not(.header-index) {
                         <section class='hero' id='home'>
                             <div class='container'>
                                 <div class='hero-content'>
-                                    <h1>Your Cozy Base Near Gulmarg</h1>
+                                    <h2 style='color: white;'>Your Cozy Base Near Gulmarg</h2>
                                     <p class='hero-subtitle'>Find warm Kashmiri hospitality at Conifer View Guest House</p>
                                     <p class='hero-location'>
                                         <i class='fas fa-map-marker-alt'/>
@@ -4398,9 +4353,8 @@ header[class^="header-"]:not(.header-index) {
         // Mobile menu toggle
         if (mobileMenu && navLinks) {
             mobileMenu.addEventListener('click', function() {
-                const isExpanded = mobileMenu.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
                 navLinks.classList.toggle('active');
-                mobileMenu.setAttribute('aria-expanded', isExpanded);
                 document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
             });
 
@@ -4647,6 +4601,16 @@ header[class^="header-"]:not(.header-index) {
             }, 2000);
         });
         
+        // Service Worker registration for caching (optional)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('SW registered: ', registration);
+                }).catch(function(registrationError) {
+                    console.log('SW registration failed: ', registrationError);
+                });
+            });
+        }
     }
 
     // Utility functions
