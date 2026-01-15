@@ -1991,6 +1991,448 @@ header[class^="header-"]:not(.header-index) {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
+/* ========== UNIFIED BOOKING & CONTACT SECTION ========== */
+.booking-contact-section {
+    padding: 5rem 0;
+    background: linear-gradient(180deg, #f8faf8 0%, #e8f5e9 50%, #f0f7f1 100%);
+}
+
+.booking-contact-section .section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.booking-contact-section .section-header h2 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.booking-contact-section .section-header p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Main Grid Layout */
+.booking-main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+/* ===== BOOK DIRECT CARD - PRIMARY ===== */
+.book-direct-card {
+    position: relative;
+    background: linear-gradient(145deg, #2c5530 0%, #1a3620 100%);
+    color: white;
+    padding: 2.5rem;
+    border-radius: 24px;
+    box-shadow: 0 25px 60px rgba(44, 85, 48, 0.35);
+    transition: all 0.4s ease;
+    overflow: hidden;
+}
+
+.book-direct-card::before {
+    content: '';
+    position: absolute;
+    top: -80%;
+    right: -80%;
+    width: 160%;
+    height: 160%;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, transparent 50%);
+    transition: all 0.5s ease;
+}
+
+.book-direct-card:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 35px 70px rgba(44, 85, 48, 0.4);
+}
+
+.book-direct-card:hover::before {
+    top: -50%;
+    right: -50%;
+}
+
+/* Recommended Badge */
+.recommended-badge {
+    position: absolute;
+    top: 22px;
+    right: -32px;
+    background: linear-gradient(135deg, #d4af37 0%, #b8941d 100%);
+    color: #1a1a1a;
+    padding: 10px 50px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transform: rotate(45deg);
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.5);
+}
+
+.book-direct-card .card-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(212, 175, 55, 0.2);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.book-direct-card .card-icon i {
+    font-size: 1.75rem;
+    color: var(--accent-color);
+}
+
+.book-direct-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    margin-bottom: 0.75rem;
+    color: white;
+    position: relative;
+    z-index: 1;
+}
+
+.book-direct-card > p {
+    font-size: 1rem;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 1.5rem;
+}
+
+.book-direct-benefits {
+    list-style: none;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1rem;
+}
+
+.book-direct-benefits li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.book-direct-benefits li i {
+    color: var(--accent-color);
+    font-size: 0.9rem;
+}
+
+.btn-book-direct {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 1.25rem 2rem;
+    background: linear-gradient(135deg, #d4af37 0%, #c9a227 100%);
+    color: #1a1a1a;
+    font-size: 1.15rem;
+    font-weight: 700;
+    border-radius: 14px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+}
+
+.btn-book-direct:hover {
+    background: linear-gradient(135deg, #e5c548 0%, #d4af37 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(212, 175, 55, 0.55);
+    color: #1a1a1a;
+}
+
+.btn-book-direct i {
+    font-size: 1.2rem;
+}
+
+/* ===== RIGHT SIDE - INFO + PLATFORMS ===== */
+.booking-info-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 24px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+.booking-info-card h4 {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.booking-info-card h4 i {
+    color: var(--accent-color);
+}
+
+.checkin-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--border-light);
+}
+
+.checkin-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.checkin-item i {
+    color: var(--primary-color);
+    margin-top: 3px;
+    font-size: 1rem;
+}
+
+.checkin-item strong {
+    display: block;
+    color: var(--text-color);
+    font-size: 0.85rem;
+    margin-bottom: 2px;
+}
+
+.checkin-item span {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* ===== PLATFORM BUTTONS - PROMINENT ===== */
+.platform-section h5 {
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.platform-buttons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.platform-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1rem 1.25rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Booking.com - Blue Brand */
+.platform-btn.booking-com {
+    background: linear-gradient(135deg, #003580 0%, #00224f 100%);
+    color: white;
+    border: none;
+}
+
+.platform-btn.booking-com:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 53, 128, 0.35);
+    color: white;
+}
+
+/* MakeMyTrip - Red Brand */
+.platform-btn.makemytrip {
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+    color: white;
+    border: none;
+}
+
+.platform-btn.makemytrip:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.35);
+    color: white;
+}
+
+.platform-btn i {
+    font-size: 1.1rem;
+}
+
+/* ===== CONTACT SECTION - MINIMALIST ===== */
+.contact-section-inner {
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.contact-heading {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.contact-heading i {
+    color: darkkhaki;
+}
+
+.contact-subtext {
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    font-size: 1.05rem;
+}
+
+.contact-grid-minimal {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--bg-lighter);
+    border-radius: 10px;
+    transition: var(--transition);
+}
+
+.contact-item:hover {
+    background: var(--bg-light);
+    transform: translateX(3px);
+}
+
+.contact-item-icon {
+    width: 45px;
+    height: 45px;
+    background: darkkhaki;
+    color: var(--white);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.contact-item-content h5 {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 2px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.contact-item-content p {
+    color: var(--text-color);
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.contact-item-content a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.contact-item-content a:hover {
+    color: var(--accent-color);
+}
+
+.contact-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.contact-actions .btn {
+    flex: 0 1 auto;
+    min-width: 150px;
+    justify-content: center;
+    padding: 1rem 2rem;
+}
+
+/* Responsive Contact */
+@media (max-width: 768px) {
+    .contact-grid-minimal {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .contact-actions .btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .booking-main-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .recommended-badge {
+        right: -28px;
+        font-size: 0.6rem;
+        padding: 8px 40px;
+    }
+    
+    .book-direct-benefits {
+        grid-template-columns: 1fr;
+    }
+    
+    .checkin-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .platform-buttons-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .book-direct-card {
+        padding: 2rem 1.5rem;
+    }
+    
+    .btn-book-direct {
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .booking-contact-section {
+        padding: 3rem 0;
+    }
+}
+
 
 
 
@@ -2079,7 +2521,7 @@ header[class^="header-"]:not(.header-index) {
                                         Tangmarg - Gateway to Gulmarg
                                     </p>
                                     <div class='cta-buttons'>
-                                        <a class='btn btn-accent btn-lg' href='#contact'>
+                                        <a class='btn btn-accent btn-lg' href='#booking'>
                                             <i class='fas fa-calendar-check'/> Book Now
                                         </a>
                                         <a class='btn btn-secondary btn-lg' expr:href='&quot;tel:&quot; + data:skin.vars.phone_number'>
@@ -3270,87 +3712,129 @@ header[class^="header-"]:not(.header-index) {
                             </div>
                         </section>
 
-                        <!-- Enhanced Contact Section -->
-                        <section class='section' id='contact'>
+                        <!-- ========== UNIFIED BOOKING & CONTACT SECTION ========== -->
+                        <section class='booking-contact-section' id='booking'>
     <div class='container'>
         <div class='section-header'>
-            <h2>Get In Touch</h2>
-            <p>Ready to experience Kashmir? Contact us for bookings and information</p>
+            <h2><i class='fas fa-calendar-check' style='color: var(--accent-color);'/> Book Your Stay</h2>
+            <p>Secure the best rates at Conifer View Guest House</p>
         </div>
-        <div class='contact-grid'>
-            <div class='contact-info'>
-                <h3><i class='fas fa-address-book'/> Contact Information</h3>
+        
+        <div class='booking-main-grid'>
+            <!-- LEFT: BOOK DIRECT CARD - PROMINENT -->
+            <div class='book-direct-card'>
+                <span class='recommended-badge'>Best Value</span>
+                <div class='card-icon'>
+                    <i class='fas fa-star'/>
+                </div>
+                <h3>Book Direct &amp; Save</h3>
+                <p>Get the best rates and instant confirmation by booking directly through our secure booking engine - no middleman fees.</p>
                 
-                <div class='contact-detail'>
-                    <div class='contact-detail-icon'>
-                        <i class='fas fa-phone'/>
+                <ul class='book-direct-benefits'>
+                    <li><i class='fas fa-check-circle'/> Best Price Guarantee</li>
+                    <li><i class='fas fa-check-circle'/> Instant Confirmation</li>
+                    <li><i class='fas fa-check-circle'/> Flexible Cancellation</li>
+                    <li><i class='fas fa-check-circle'/> Direct Host Support</li>
+                </ul>
+                
+                <a class='btn-book-direct' href='https://server.zitlin.com/pub/engine/conifer-view-guest-house-baramulla-jammu-a/' rel='noopener' target='_blank'>
+                    <i class='fas fa-bolt'/> Book Now - Best Rates
+                </a>
+            </div>
+            
+            <!-- RIGHT: INFO + PLATFORMS -->
+            <div class='booking-info-card'>
+                <h4><i class='fas fa-info-circle'/> Check-in Details</h4>
+                
+                <div class='checkin-grid'>
+                    <div class='checkin-item'>
+                        <i class='fas fa-sign-in-alt'/>
+                        <div>
+                            <strong>Check-in</strong>
+                            <span>1:00 PM - 6:00 PM</span>
+                        </div>
                     </div>
-                    <div class='contact-detail-content'>
-                        <h4>Phone</h4>
+                    <div class='checkin-item'>
+                        <i class='fas fa-sign-out-alt'/>
+                        <div>
+                            <strong>Check-out</strong>
+                            <span>Before 11:00 AM</span>
+                        </div>
+                    </div>
+                    <div class='checkin-item'>
+                        <i class='fas fa-id-card'/>
+                        <div>
+                            <strong>ID Required</strong>
+                            <span>18+ for primary guest</span>
+                        </div>
+                    </div>
+                    <div class='checkin-item'>
+                        <i class='fas fa-ban'/>
+                        <div>
+                            <strong>House Rules</strong>
+                            <span>No smoking/pets</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class='platform-section'>
+                    <h5><i class='fas fa-globe'/> Also Book On:</h5>
+                    <div class='platform-buttons-grid'>
+                        <a class='platform-btn booking-com' href='https://www.booking.com/hotel/in/conifer-view-guest-house-baramulla2.html' rel='noopener' target='_blank'>
+                            <i class='fas fa-bed'/> Booking.com
+                        </a>
+                        <a class='platform-btn makemytrip' href='https://www.makemytrip.com/hotels/conifer_view_guest_house-details-gulmarg.html' rel='noopener' target='_blank'>
+                            <i class='fas fa-plane'/> MakeMyTrip
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- CONTACT - SIMPLE -->
+        <div class='contact-section-inner' id='contact'>
+            <h2 class='contact-heading'>Get In Touch</h2>
+            <p class='contact-subtext'>We'd love to hear from you</p>
+            
+            <div class='contact-grid-minimal'>
+                <div class='contact-item'>
+                    <div class='contact-item-icon'>
+                        <i class='fas fa-phone-alt'/>
+                    </div>
+                    <div class='contact-item-content'>
+                        <h5>Phone</h5>
                         <p><a expr:href='&quot;tel:&quot; + data:skin.vars.phone_number'><b:eval expr='data:skin.vars.phone_number'/></a></p>
                     </div>
                 </div>
-
-                <div class='contact-detail'>
-                    <div class='contact-detail-icon'>
+                
+                <div class='contact-item'>
+                    <div class='contact-item-icon'>
                         <i class='fas fa-map-marker-alt'/>
                     </div>
-                    <div class='contact-detail-content'>
-                        <h4>Address</h4>
-                        <p><b:eval expr='data:skin.vars.address_street'/><br/><b:eval expr='data:skin.vars.address_locality'/>, <b:eval expr='data:skin.vars.address_region'/> <b:eval expr='data:skin.vars.address_postalCode'/></p>
+                    <div class='contact-item-content'>
+                        <h5>Location</h5>
+                        <p><b:eval expr='data:skin.vars.address_street'/>, <b:eval expr='data:skin.vars.address_locality'/></p>
                     </div>
                 </div>
-
-                <div class='contact-detail'>
-                    <div class='contact-detail-icon'>
-                        <i class='fas fa-user-tie'/>
+                
+                <div class='contact-item'>
+                    <div class='contact-item-icon'>
+                        <i class='fas fa-user'/>
                     </div>
-                    <div class='contact-detail-content'>
-                        <h4>Host</h4>
-                        <p><b:eval expr='data:skin.vars.host_name'/><br/><small>Response within 24 hours</small></p>
+                    <div class='contact-item-content'>
+                        <h5>Host</h5>
+                        <p><b:eval expr='data:skin.vars.host_name'/></p>
                     </div>
-                </div>
-
-                <div class='contact-buttons'>
-                    <a class='btn btn-primary' expr:href='&quot;tel:&quot; + data:skin.vars.phone_number'>
-                        <i class='fas fa-phone'/> Call Now
-                    </a>
-                    <a class='btn btn-accent' expr:href='&quot;https://wa.me/&quot; + data:skin.vars.whatsapp_number'>
-                        <i class='fab fa-whatsapp'/> WhatsApp
-                    </a>
                 </div>
             </div>
-
-            <div class='booking-info'>
-                <h3><i class='fas fa-info-circle'/> Check-in Information</h3>
-                
-                <div class='booking-detail'>
-                    <h4>Check-in / Check-out</h4>
-                    <p><strong>1:00 PM - 6:00 PM</strong> / Until <strong>11:00 AM</strong></p>
-                </div>
-
-                <div class='booking-detail'>
-                    <h4>ID Requirements</h4>
-                    <p>Valid ID required (18+ for primary guest)</p>
-                </div>
-
-                <div class='booking-detail'>
-                    <h4>House Rules</h4>
-                    <p>No smoking, No pets, No parties</p>
-                </div>
-
-                <div class='booking-platforms'>
-                    <h4>Book Direct</h4>
-                    <p>Get the best rates by booking directly with us. We also accept bookings through:</p>
-                    <div class='platform-links'>
-                        <a href='https://www.booking.com/hotel/in/conifer-view-guest-house-baramulla2.html' rel='noopener' target='_blank'>
-                            <i class='fas fa-external-link-alt'/> Booking.com
-                        </a>
-                        <a href='https://www.makemytrip.com/hotels/conifer_view_guest_house-details-gulmarg.html' rel='noopener' target='_blank'>
-                            <i class='fas fa-external-link-alt'/> MakeMyTrip
-                        </a>
-                    </div>
-                </div>
+            
+            <div class='contact-actions'>
+                <a class='btn btn-primary' expr:href='&quot;tel:&quot; + data:skin.vars.phone_number'>
+                    <i class='fas fa-phone'/> Call Now
+                </a>
+                <a class='btn btn-accent' expr:href='&quot;https://wa.me/&quot; + data:skin.vars.whatsapp_number'>
+                    <i class='fab fa-whatsapp'/> WhatsApp
+                </a>
             </div>
         </div>
     </div>
